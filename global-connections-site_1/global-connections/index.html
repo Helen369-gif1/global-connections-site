@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Global Connections — Glonari</title>
+<meta name="description" content="Global Connections: Gia, your personal AI agent at Glonari, finds ways to save, earn extra and put your experience to work, and explains what fits you best.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Playfair+Display:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="icon" href="assets/logo/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/logo/favicon-180.png">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/shell.css">
+<link rel="stylesheet" href="css/page.css">
+</head>
+<body class="no-js" data-page="global-connections">
+<a class="sr-only" href="#main">Skip to content</a>
+
+<header class="site-header gcs-header">
+  <div class="site-header__row">
+    <a class="brand" href="#intro" aria-label="Glonari, Global Connections, back to top">
+      <img class="brand__mark" src="assets/logo/glonari-mark.webp" width="192" height="192" alt="">
+      <span class="brand__name">Glonari</span>
+    </a>
+    <nav class="site-nav" aria-label="On this page">
+      <a href="#how-it-works">How it works</a>
+      <a href="#what-gia-does">What Gia can do</a>
+      <a href="#example">Example</a>
+      <a href="#trust">Personal &amp; trust</a>
+    </nav>
+    <a class="btn btn--primary btn--sm header-cta" href="#final">Explore with Gia</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"><span></span></button>
+  </div>
+  <div class="progress" aria-hidden="true"></div>
+</header>
+<div class="mobile-menu" id="mobile-menu">
+  <nav aria-label="On this page">
+    <ul class="mm">
+      <li class="mm__page"><a href="#how-it-works">How it works</a></li>
+      <li class="mm__page"><a href="#what-gia-does">What Gia can do</a></li>
+      <li class="mm__page"><a href="#example">Example</a></li>
+      <li class="mm__page"><a href="#trust">Personal &amp; trust</a></li>
+    </ul>
+  </nav>
+  <a class="btn btn--primary" href="#final">Explore with Gia</a>
+</div>
+
+<main id="main">
+
+<!-- Line icons used on this page (24px grid, 1.5px stroke, currentColor) -->
+<svg class="gc-sprite" width="0" height="0" aria-hidden="true" focusable="false">
+  <symbol id="gc-i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><line x1="15" y1="15" x2="20" y2="20"/></symbol>
+  <symbol id="gc-i-tasks" viewBox="0 0 24 24"><polyline points="4,7 5.5,8.5 8,6"/><line x1="11" y1="7.5" x2="20" y2="7.5"/><polyline points="4,15 5.5,16.5 8,14"/><line x1="11" y1="15.5" x2="20" y2="15.5"/></symbol>
+  <symbol id="gc-i-spark" viewBox="0 0 24 24"><path d="M12 3.5 L13.8 10.2 L20.5 12 L13.8 13.8 L12 20.5 L10.2 13.8 L3.5 12 L10.2 10.2 Z"/></symbol>
+  <symbol id="gc-i-chat" viewBox="0 0 24 24"><path d="M5 5.5 H19 A1.5 1.5 0 0 1 20.5 7 V15 A1.5 1.5 0 0 1 19 16.5 H10 L6 19.5 V16.5 H5 A1.5 1.5 0 0 1 3.5 15 V7 A1.5 1.5 0 0 1 5 5.5 Z"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="13" x2="13" y2="13"/></symbol>
+  <symbol id="gc-i-list" viewBox="0 0 24 24"><rect x="4" y="4.5" width="16" height="4.5" rx="1.5"/><rect x="4" y="11" width="16" height="4" rx="1.5"/><rect x="4" y="17" width="10" height="2.5" rx="1.25"/></symbol>
+  <symbol id="gc-i-hands" viewBox="0 0 24 24"><circle cx="8" cy="7" r="2.5"/><path d="M3.5 18 C3.5 14 5.5 12 8 12 C10.5 12 12.5 14 12.5 18"/><polyline points="14.5,13 16.5,15 20.5,10"/></symbol>
+  <symbol id="gc-i-tag" viewBox="0 0 24 24"><path d="M4 12.5 V5.5 A1.5 1.5 0 0 1 5.5 4 H12.5 L20 11.5 L11.5 20 Z"/><circle cx="8.5" cy="8.5" r="1.5"/></symbol>
+  <symbol id="gc-i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><polyline points="12,7.5 12,12 15,14"/></symbol>
+  <symbol id="gc-i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><polygon points="15,9 13,13 9,15 11,11"/></symbol>
+  <symbol id="gc-i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5 V7.5 A4 4 0 0 1 16 7.5 V10.5"/><line x1="12" y1="14.5" x2="12" y2="16.5"/></symbol>
+  <symbol id="gc-i-scales" viewBox="0 0 24 24"><line x1="12" y1="4" x2="12" y2="20"/><line x1="8" y1="20" x2="16" y2="20"/><line x1="5" y1="7" x2="19" y2="7"/><path d="M3 14 L5 8 L7 14 Z"/><path d="M17 14 L19 8 L21 14 Z"/></symbol>
+  <symbol id="gc-i-question" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M9.8 9.6 A2.3 2.3 0 1 1 12 12.4 V13.6"/><line x1="12" y1="16.2" x2="12" y2="16.8"/></symbol>
+  <symbol id="gc-i-check" viewBox="0 0 24 24"><polyline points="5,12.5 10,17 19,7.5"/></symbol>
+  <symbol id="gc-i-replay" viewBox="0 0 24 24"><path d="M5 12 A7 7 0 1 0 7.2 6.9"/><polyline points="7.5,3 7.5,7 3.5,7"/></symbol>
+</svg>
+
+<!-- 01 HERO -->
+<section class="page-hero page-hero--right page-hero--below-header gc-hero" id="intro" aria-labelledby="intro-title">
+  <div class="page-hero__media" style="--focus: 25% 20%">
+    <video data-play-once data-delay="800" data-still="assets/images/hero-gc-still.webp" muted playsinline preload="auto" poster="assets/images/hero-gc-poster.webp" width="1280" height="720" aria-hidden="true">
+      <source src="assets/video/hero-gc.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="container gc-hero__grid">
+    <div class="page-hero__text gc-hero__text">
+      <p class="eyebrow gc-eyebrow">Global Connections&reg; <span class="badge badge--next">Coming next</span></p>
+      <h1 class="page-hero__title" id="intro-title">Opportunities that find you</h1>
+      <p class="lead">Gia is your personal AI agent at Glonari. She finds ways to save, earn extra and put your experience to work &mdash; and explains what fits you best.</p>
+      <div class="btn-row btn-row--stack">
+        <a class="btn btn--primary" href="#final">Explore with Gia</a>
+        <a class="btn btn--secondary" href="#how-it-works">How it works</a>
+      </div>
+    </div>
+
+    <figure class="gc-hero__chat">
+      <div class="glass gc-chat gc-chat--mini" id="gc-hero-chat" data-gc-chat="hero">
+        <div class="gc-chat__head">
+          <span class="gc-ava"><picture><source srcset="assets/images/gia.webp" type="image/webp"><img src="assets/images/gia.png" width="400" height="400" alt="" decoding="async"></picture></span>
+          <span class="gc-chat__name">Gia</span>
+          <span class="gc-chat__state mono" data-chat-state aria-hidden="true">listening</span>
+        </div>
+        <div class="gc-chat__body">
+          <p class="bubble bubble--user gc-step" data-step="1"><span class="sr-only">You: </span>I want to cut costs and earn a bit extra</p>
+          <p class="gc-typing gc-step" data-step="2" data-typing aria-hidden="true"><span></span><span></span><span></span></p>
+          <p class="bubble bubble--gia gc-step" data-step="3" data-state="found 3 options"><span class="sr-only">Gia: </span>I found 3 options that fit. Want to see them?</p>
+          <ul class="gc-minis" aria-label="Options Gia found">
+            <li class="gc-step" data-step="4"><a class="gc-mini" href="#what-gia-does" data-area="save"><span class="gc-mini__label mono">Save</span><span class="gc-mini__value">$15/mo</span><span class="gc-mini__cap">Internet plan</span></a></li>
+            <li class="gc-step" data-step="5"><a class="gc-mini" href="#what-gia-does" data-area="earn"><span class="gc-mini__label mono">Earn</span><span class="gc-mini__value">Survey ~$8</span><span class="gc-mini__cap">About 15 min</span></a></li>
+            <li class="gc-step" data-step="6"><a class="gc-mini" href="#what-gia-does" data-area="work"><span class="gc-mini__label mono">Grow</span><span class="gc-mini__value">Project</span><span class="gc-mini__cap">For your experience</span></a></li>
+          </ul>
+        </div>
+        <div class="gc-chat__input" aria-hidden="true"><span>Ask Gia anything&hellip;</span></div>
+      </div>
+      <figcaption class="caption gc-hero__note">Illustrative preview. Amounts are examples.</figcaption>
+    </figure>
+
+    <ul class="gc-benefits" aria-label="Why use Global Connections">
+      <li><svg class="gc-icon" aria-hidden="true"><use href="#gc-i-search"/></svg>Less searching</li>
+      <li><svg class="gc-icon" aria-hidden="true"><use href="#gc-i-tasks"/></svg>Less busywork</li>
+      <li><svg class="gc-icon" aria-hidden="true"><use href="#gc-i-spark"/></svg>More value</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 02 HOW IT WORKS -->
+<section class="section section--deep gc-how" id="how-it-works" aria-labelledby="how-title" data-gc-how>
+  <!-- Read instead of the card row while the row is pinned (js/page.js unhides it and hides the row from screen readers) -->
+  <ol class="sr-only" data-gc-stories-sr hidden>
+    <li>Step 1 of 4: Tell Gia what you need. Describe it in your own words. No long forms &mdash; Gia asks follow-up questions if needed.</li>
+    <li>Step 2 of 4: Gia searches and compares. She weighs the benefit, terms, reliability and the time it will take.</li>
+    <li>Step 3 of 4: Pick the best option. A short list, each explaining what you get, what to do and what limits apply.</li>
+    <li>Step 4 of 4: Act together with Gia. She handles the routine. Key decisions and consents always stay with you.</li>
+  </ol>
+  <div class="gc-how__pin">
+    <div class="gc-how__stage">
+      <div class="container">
+        <div class="head--center reveal gc-how__head">
+          <p class="eyebrow">How it works</p>
+          <h2 class="h2" id="how-title">From your goal to the right opportunity.</h2>
+          <p class="lead">Four steps from your request to a concrete result.</p>
+        </div>
+      </div>
+      <div class="container gc-stories">
+        <ol class="gc-stories__track" aria-label="Four steps">
+          <li class="gc-story" data-story="1">
+            <div class="gc-story__top">
+              <div class="gc-story__steps" aria-hidden="true"><i class="is-on"></i><i></i><i></i><i></i></div>
+              <p class="gc-story__num mono"><span class="sr-only">Step </span>01 <span class="gc-story__of">/ 04</span></p>
+            </div>
+            <figure class="media-frame card__photo gc-photo" style="--focus: 35% 50%"><div class="media-frame__box"><picture><img src="assets/images/quiet-moment.webp" width="1200" height="900" loading="lazy" decoding="async" alt=""></picture></div></figure>
+            <div class="gc-story__bottom">
+              <h3 class="gc-story__title">Tell Gia what you need</h3>
+              <p class="gc-story__text">Describe it in your own words. No long forms &mdash; Gia asks follow-up questions if needed.</p>
+              <p class="gc-story__who mono"><span>You</span> in your own words</p>
+            </div>
+          </li>
+          <li class="gc-story" data-story="2">
+            <div class="gc-story__top">
+              <div class="gc-story__steps" aria-hidden="true"><i class="is-on"></i><i class="is-on"></i><i></i><i></i></div>
+              <p class="gc-story__num mono"><span class="sr-only">Step </span>02 <span class="gc-story__of">/ 04</span></p>
+            </div>
+            <figure class="media-frame card__photo gc-photo" style="--focus: 45% 50%"><div class="media-frame__box"><picture><source type="image/webp" srcset="assets/images/enables-capabilities-1536.webp"><img src="assets/images/enables-capabilities-1536.jpg" width="1536" height="1024" loading="lazy" decoding="async" alt=""></picture></div></figure>
+            <div class="gc-story__bottom">
+              <h3 class="gc-story__title">Gia searches and compares</h3>
+              <p class="gc-story__text">She weighs the benefit, terms, reliability and the time it will take.</p>
+              <p class="gc-story__who mono"><span>Gia</span> fit &middot; terms &middot; reliability &middot; time</p>
+            </div>
+          </li>
+          <li class="gc-story" data-story="3">
+            <div class="gc-story__top">
+              <div class="gc-story__steps" aria-hidden="true"><i class="is-on"></i><i class="is-on"></i><i class="is-on"></i><i></i></div>
+              <p class="gc-story__num mono"><span class="sr-only">Step </span>03 <span class="gc-story__of">/ 04</span></p>
+            </div>
+            <figure class="media-frame card__photo gc-photo" style="--focus: 40% 50%"><div class="media-frame__box"><picture><img src="assets/images/couple-comparing-homes.webp" width="1200" height="675" loading="lazy" decoding="async" alt=""></picture></div></figure>
+            <div class="gc-story__bottom">
+              <h3 class="gc-story__title">Pick the best option</h3>
+              <p class="gc-story__text">A short list, each explaining what you get, what to do and what limits apply.</p>
+              <p class="gc-story__who mono"><span>You</span> a few options, explained</p>
+            </div>
+          </li>
+          <li class="gc-story" data-story="4">
+            <div class="gc-story__top">
+              <div class="gc-story__steps" aria-hidden="true"><i class="is-on"></i><i class="is-on"></i><i class="is-on"></i><i class="is-on"></i></div>
+              <p class="gc-story__num mono"><span class="sr-only">Step </span>04 <span class="gc-story__of">/ 04</span></p>
+            </div>
+            <figure class="media-frame card__photo gc-photo" style="--focus: 50% 50%"><div class="media-frame__box"><picture><source type="image/webp" srcset="assets/images/hgw-direction-1600.webp"><img src="assets/images/hgw-direction-1600.jpg" width="1600" height="686" loading="lazy" decoding="async" alt=""></picture></div></figure>
+            <div class="gc-story__bottom">
+              <h3 class="gc-story__title">Act together with Gia</h3>
+              <p class="gc-story__text">She handles the routine. Key decisions and consents always stay with you.</p>
+              <p class="gc-story__who mono"><span>You</span> decide &middot; <span>Gia</span> assists</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <p class="principle principle--center gc-how__line reveal">No need to browse hundreds of offers. Start with one question.</p>
+  </div>
+</section>
+
+<!-- 03 WHAT GIA CAN DO -->
+<section class="section section--glow" id="what-gia-does" aria-labelledby="can-title">
+  <div class="container">
+    <div class="reveal">
+      <p class="eyebrow">What Gia can do</p>
+      <h2 class="h2" id="can-title">What Gia can do for you</h2>
+      <p class="lead">Three ways to benefit. One intelligent assistant.</p>
+    </div>
+    <div class="gc-areas gap-major" data-gc-areas>
+      <div class="gc-areas__list">
+        <div class="gc-areas__tabs" role="tablist" aria-label="Areas" aria-orientation="vertical">
+          <button class="gc-area-tab" type="button" role="tab" id="gc-tab-save" aria-controls="gc-panel-save" aria-selected="true" data-area="save"><span class="gc-area-tab__num mono">01</span><span class="gc-area-tab__name">Save</span></button>
+          <button class="gc-area-tab" type="button" role="tab" id="gc-tab-earn" aria-controls="gc-panel-earn" aria-selected="false" tabindex="-1" data-area="earn"><span class="gc-area-tab__num mono">02</span><span class="gc-area-tab__name">Earn extra</span></button>
+          <button class="gc-area-tab" type="button" role="tab" id="gc-tab-work" aria-controls="gc-panel-work" aria-selected="false" tabindex="-1" data-area="work"><span class="gc-area-tab__num mono">03</span><span class="gc-area-tab__name">Work &amp; goals</span></button>
+        </div>
+        <div class="gc-soon">
+          <p class="gc-soon__label mono">Coming soon</p>
+          <ul class="gc-soon__chips" aria-label="Areas coming soon">
+            <li title="Available as partners join">Travel</li>
+            <li title="Available as partners join">Housing</li>
+            <li title="Available as partners join">Education</li>
+            <li title="Available as partners join">Services</li>
+            <li title="Available as partners join">Business</li>
+          </ul>
+          <p class="caption">Available as partners join.</p>
+        </div>
+      </div>
+
+      <div class="gc-areas__panels">
+        <article class="gc-area" role="tabpanel" id="gc-panel-save" aria-labelledby="gc-tab-save" tabindex="0">
+          <figure class="media-frame card__photo gc-photo" style="--ratio: 16 / 9; --focus: 50% 50%"><div class="media-frame__box" data-parallax><picture><source type="image/webp" srcset="assets/images/mp-money-800.webp 800w, assets/images/mp-money-1600.webp 1600w" sizes="(max-width: 960px) 100vw, 600px"><img src="assets/images/mp-money-800.jpg" srcset="assets/images/mp-money-800.jpg 800w, assets/images/mp-money-1600.jpg 1600w" sizes="(max-width: 960px) 100vw, 600px" width="1600" height="900" loading="lazy" decoding="async" alt=""></picture></div></figure>
+          <div class="gc-area__head">
+            <svg class="gc-icon gc-area__icon" aria-hidden="true"><use href="#gc-i-tag"/></svg>
+            <span class="badge badge--next">Coming next</span>
+          </div>
+          <h3 class="h3 gc-area__title">Save money</h3>
+          <p class="gc-area__text">Gia compares plans and finds discounts and rewards on what you already intended to buy &mdash; without giving up what you like.</p>
+          <div class="gc-quote">
+            <span class="gc-ava gc-ava--sm" aria-hidden="true"><picture><source srcset="assets/images/gia.webp" type="image/webp"><img src="assets/images/gia.png" width="400" height="400" alt="" loading="lazy" decoding="async"></picture></span>
+            <p class="bubble bubble--gia"><span class="sr-only">Gia: </span>&ldquo;There may be an internet plan that costs <mark>about $15 less per month</mark>. Would you like me to compare the terms?&rdquo;</p>
+          </div>
+        </article>
+        <article class="gc-area" role="tabpanel" id="gc-panel-earn" aria-labelledby="gc-tab-earn" tabindex="0" hidden>
+          <figure class="media-frame card__photo gc-photo" style="--ratio: 16 / 9; --focus: 50% 40%"><div class="media-frame__box" data-parallax><picture><source type="image/webp" srcset="assets/images/enables-economic-800.webp 800w, assets/images/enables-economic-1536.webp 1536w" sizes="(max-width: 960px) 100vw, 600px"><img src="assets/images/enables-economic-800.jpg" srcset="assets/images/enables-economic-800.jpg 800w, assets/images/enables-economic-1536.jpg 1536w" sizes="(max-width: 960px) 100vw, 600px" width="1536" height="1024" loading="lazy" decoding="async" alt=""></picture></div></figure>
+          <div class="gc-area__head">
+            <svg class="gc-icon gc-area__icon" aria-hidden="true"><use href="#gc-i-clock"/></svg>
+            <span class="badge badge--next">Coming next</span>
+          </div>
+          <h3 class="h3 gc-area__title">Earn extra</h3>
+          <p class="gc-area__text">Paid surveys, product testing and research tasks &mdash; matched to the free time you have and their participation requirements.</p>
+          <div class="gc-quote">
+            <span class="gc-ava gc-ava--sm" aria-hidden="true"><picture><source srcset="assets/images/gia.webp" type="image/webp"><img src="assets/images/gia.png" width="400" height="400" alt="" loading="lazy" decoding="async"></picture></span>
+            <p class="bubble bubble--gia"><span class="sr-only">Gia: </span>&ldquo;Have 20 minutes? I found <mark>a few tasks with estimated rewards</mark>. I can show the time, requirements and conditions for each.&rdquo;</p>
+          </div>
+        </article>
+        <article class="gc-area" role="tabpanel" id="gc-panel-work" aria-labelledby="gc-tab-work" tabindex="0" hidden>
+          <figure class="media-frame card__photo gc-photo" style="--ratio: 16 / 9; --focus: 50% 40%"><div class="media-frame__box" data-parallax><picture><source type="image/webp" srcset="assets/images/enables-connections-800.webp 800w, assets/images/enables-connections-1536.webp 1536w" sizes="(max-width: 960px) 100vw, 600px"><img src="assets/images/enables-connections-800.jpg" srcset="assets/images/enables-connections-800.jpg 800w, assets/images/enables-connections-1536.jpg 1536w" sizes="(max-width: 960px) 100vw, 600px" width="1536" height="1024" loading="lazy" decoding="async" alt=""></picture></div></figure>
+          <div class="gc-area__head">
+            <svg class="gc-icon gc-area__icon" aria-hidden="true"><use href="#gc-i-compass"/></svg>
+            <span class="badge badge--next">Coming next</span>
+          </div>
+          <h3 class="h3 gc-area__title">Use your expertise</h3>
+          <p class="gc-area__text">Projects and tasks that match your knowledge, skills and interests &mdash; and, as the platform expands, your travel, housing and other goals.</p>
+          <div class="gc-quote">
+            <span class="gc-ava gc-ava--sm" aria-hidden="true"><picture><source srcset="assets/images/gia.webp" type="image/webp"><img src="assets/images/gia.png" width="400" height="400" alt="" loading="lazy" decoding="async"></picture></span>
+            <p class="bubble bubble--gia"><span class="sr-only">Gia: </span>&ldquo;This research project matches your experience: <mark>about $650 in total over three months</mark>. Would you like to review the workload and terms?&rdquo;</p>
+          </div>
+        </article>
+      </div>
+    </div>
+    <p class="caption gc-disclaimer">Examples and figures are illustrative. Rewards depend on each offer&rsquo;s terms and confirmed completion. Income is not guaranteed. Availability depends on the product rollout and connected partners.</p>
+  </div>
+</section>
+
+<!-- 04 EXAMPLE DIALOGUE -->
+<section class="section section--deep" id="example" aria-labelledby="ex-title">
+  <div class="container gc-example">
+    <div class="gc-example__text">
+      <div class="reveal">
+        <p class="eyebrow">See it in action</p>
+        <h2 class="h2" id="ex-title">One conversation, a few concrete opportunities</h2>
+        <p class="lead">Instead of hundreds of ads &mdash; a short list of things that are easy to act on.</p>
+      </div>
+      <ol class="gc-index" aria-label="What happens in this example">
+        <li data-index="1">You share your plans</li>
+        <li data-index="2">Gia searches and compares</li>
+        <li data-index="3">Three options, explained</li>
+        <li data-index="4">You choose</li>
+        <li data-index="5">Gia helps with the next step</li>
+      </ol>
+      <button class="btn btn--secondary btn--sm gc-replay" type="button" data-chat-replay="example"><svg class="gc-icon" aria-hidden="true"><use href="#gc-i-replay"/></svg>Replay</button>
+    </div>
+
+    <div class="gc-example__chat">
+      <div class="glass gc-chat gc-chat--full" data-gc-chat="example">
+        <div class="gc-chat__head">
+          <span class="gc-ava"><picture><source srcset="assets/images/gia.webp" type="image/webp"><img src="assets/images/gia.png" width="400" height="400" alt="" loading="lazy" decoding="async"></picture></span>
+          <span class="gc-chat__name">Gia</span>
+          <span class="gc-chat__state mono" data-chat-state aria-hidden="true">listening</span>
+          <span class="badge badge--plain gc-chat__badge">Illustrative</span>
+        </div>
+        <div class="gc-chat__body" data-chat-scroll>
+          <p class="bubble bubble--user gc-step" data-step="1" data-index-step="1"><span class="sr-only">You: </span>I want to earn a little extra this month, but I don&rsquo;t have much free time. I&rsquo;m also planning to buy a laptop.</p>
+          <p class="gc-typing gc-step" data-step="2" data-typing aria-hidden="true"><span></span><span></span><span></span></p>
+          <p class="gc-log mono gc-step" data-step="3" data-index-step="2" data-state="searching">Looked for short activities that fit your time</p>
+          <p class="gc-log mono gc-step" data-step="4" data-state="comparing">Compared laptop offers &middot; final prices and merchant rewards</p>
+          <div class="gc-reply gc-step" data-step="5" data-index-step="3" data-state="waiting for you">
+            <p class="bubble bubble--gia"><span class="sr-only">Gia: </span>Got it. Here are three possibilities worth considering:</p>
+            <div class="gc-offers" data-gc-offers>
+              <ul class="gc-offers__track" tabindex="0" aria-label="Three opportunities">
+                <li class="gc-offer is-selected" data-offer="1">
+                  <span class="gc-offer__label mono">Extra income</span>
+                  <span class="gc-offer__title">Short research activity</span>
+                  <span class="gc-offer__value">~$8 <small>est. reward</small></span>
+                  <span class="gc-offer__meta mono">15&ndash;20 min</span>
+                  <span class="gc-offer__next">I&rsquo;ll check the eligibility rules first</span>
+                  <span class="status status--ready gc-offer__chosen">Your choice</span>
+                </li>
+                <li class="gc-offer is-later" data-offer="2">
+                  <span class="gc-offer__label mono">Smart purchase</span>
+                  <span class="gc-offer__title">Laptop purchase</span>
+                  <span class="gc-offer__value">Merchant reward?</span>
+                  <span class="gc-offer__meta mono">Final price compared</span>
+                  <span class="gc-offer__next">I&rsquo;ll check whether a reward applies</span>
+                  <span class="status status--muted gc-offer__chosen">Saved for later</span>
+                </li>
+                <li class="gc-offer" data-offer="3">
+                  <span class="gc-offer__label mono">For later</span>
+                  <span class="gc-offer__title">Expert research project</span>
+                  <span class="gc-offer__value">Takes longer</span>
+                  <span class="gc-offer__meta mono">Matches your experience</span>
+                  <span class="gc-offer__next">Workload and terms need a separate review</span>
+                </li>
+              </ul>
+              <div class="gc-dots gc-dots--sm" aria-hidden="true"><i class="is-on"></i><i></i><i></i></div>
+            </div>
+          </div>
+          <p class="bubble bubble--user gc-step" data-step="6" data-index-step="4" data-select-offer="1"><span class="sr-only">You: </span>Let&rsquo;s start with the short task and save the laptop for later.</p>
+          <p class="gc-log mono gc-step" data-step="7" data-state="preparing" data-later-offer="2">Saved the laptop for later</p>
+          <p class="bubble bubble--gia gc-step" data-step="8" data-index-step="5" data-state="waiting for you"><span class="sr-only">Gia: </span>Of course. I&rsquo;ll explain the terms, help with the permitted steps and ask you whenever your answer or approval is needed.</p>
+        </div>
+        <a class="gc-chat__input" href="#final"><span>Write to Gia&hellip;</span></a>
+      </div>
+      <p class="caption gc-disclaimer">This is an illustrative scenario. Amounts, timing and offers are examples and do not guarantee availability or rewards.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Photo breather: not in the section menu, hands the highlight to #example -->
+<section class="vista" id="vista-trust" data-nav="example">
+  <picture class="vista__media" data-vista>
+    <source type="image/webp" data-srcset="assets/images/vista-gc-800.webp 800w, assets/images/vista-gc-1600.webp 1600w, assets/images/vista-gc-2400.webp 2400w" sizes="(max-aspect-ratio: 16/9) 178vh, 100vw">
+    <img data-src="assets/images/vista-gc-1600.jpg" data-srcset="assets/images/vista-gc-800.jpg 800w, assets/images/vista-gc-1600.jpg 1600w, assets/images/vista-gc-2400.jpg 2400w" sizes="(max-aspect-ratio: 16/9) 178vh, 100vw" width="2400" height="1350" alt="" loading="lazy" decoding="async">
+  </picture>
+  <noscript><picture class="vista__media">
+    <source type="image/webp" srcset="assets/images/vista-gc-800.webp 800w, assets/images/vista-gc-1600.webp 1600w, assets/images/vista-gc-2400.webp 2400w" sizes="(max-aspect-ratio: 16/9) 178vh, 100vw">
+    <img src="assets/images/vista-gc-1600.jpg" srcset="assets/images/vista-gc-800.jpg 800w, assets/images/vista-gc-1600.jpg 1600w, assets/images/vista-gc-2400.jpg 2400w" sizes="(max-aspect-ratio: 16/9) 178vh, 100vw" width="2400" height="1350" alt="" loading="lazy" decoding="async">
+  </picture></noscript>
+  <p class="vista__line reveal">Less searching. More meaningful opportunities.</p>
+</section>
+
+<!-- 05 PERSONALIZATION & TRUST -->
+<section class="section" id="trust" aria-labelledby="trust-title">
+  <div class="container">
+    <div class="head--center reveal">
+      <p class="eyebrow">Personal &amp; trust</p>
+      <h2 class="h2" id="trust-title">Personal to you. Your call.</h2>
+      <p class="lead">Personalized recommendations, with your permission.</p>
+    </div>
+    <div class="gc-trust gap-major">
+      <article class="glass gc-trust__card gc-memory">
+        <figure class="media-frame card__photo gc-photo" style="--ratio: 16 / 9; --focus: 50% 50%"><div class="media-frame__box" data-parallax><picture><source type="image/webp" srcset="assets/images/mem-pro-800.webp 800w, assets/images/mem-pro-1600.webp 1600w" sizes="(max-width: 960px) 100vw, 560px"><img src="assets/images/mem-pro-800.jpg" srcset="assets/images/mem-pro-800.jpg 800w, assets/images/mem-pro-1600.jpg 1600w" sizes="(max-width: 960px) 100vw, 560px" width="1600" height="724" loading="lazy" decoding="async" alt=""></picture></div></figure>
+        <p class="gc-pill mono">With permission</p>
+        <h3 class="h3">Gia remembers what matters to you</h3>
+        <p class="gc-trust__text">With your permission, Gia remembers your goals, preferences and plans &mdash; and her suggestions get sharper every time.</p>
+        <ul class="gc-prefs" aria-label="Example preferences" data-stagger>
+          <li><svg class="gc-icon" aria-hidden="true"><use href="#gc-i-check"/></svg>Short tasks</li>
+          <li><svg class="gc-icon" aria-hidden="true"><use href="#gc-i-check"/></svg>Keep my provider</li>
+          <li><svg class="gc-icon" aria-hidden="true"><use href="#gc-i-check"/></svg>Summer trip</li>
+          <li><svg class="gc-icon" aria-hidden="true"><use href="#gc-i-check"/></svg>Laptop under $1,000</li>
+        </ul>
+        <p class="caption gc-trust__foot">Plans changed? Just tell Gia.</p>
+      </article>
+      <article class="gc-trust__card gc-interests">
+        <figure class="media-frame card__photo gc-photo" style="--ratio: 16 / 9; --focus: 30% 40%"><div class="media-frame__box" data-parallax><picture><source type="image/webp" srcset="assets/images/gc-hero-workspace-800.webp 800w, assets/images/gc-hero-workspace-1600.webp 1600w" sizes="(max-width: 960px) 100vw, 560px"><img src="assets/images/gc-hero-workspace-800.jpg" srcset="assets/images/gc-hero-workspace-800.jpg 800w, assets/images/gc-hero-workspace-1600.jpg 1600w" sizes="(max-width: 960px) 100vw, 560px" width="1600" height="900" loading="lazy" decoding="async" alt=""></picture></div></figure>
+        <p class="gc-pill mono">Under your control</p>
+        <h3 class="h3">Your interests come first</h3>
+        <ul class="gc-points">
+          <li><svg class="gc-icon" aria-hidden="true"><use href="#gc-i-lock"/></svg><span>Your profile is not sold to merchants. Matching keeps control of your personal information with you.</span></li>
+          <li><svg class="gc-icon" aria-hidden="true"><use href="#gc-i-scales"/></svg><span>Gia weighs reliability, terms and risks &mdash; not just the size of the reward.</span></li>
+          <li><svg class="gc-icon" aria-hidden="true"><use href="#gc-i-question"/></svg><span>Decline any suggestion, change your preferences or ask: &ldquo;Why this one?&rdquo;</span></li>
+        </ul>
+        <p class="principle gc-trust__tagline" data-shine>Gia searches and helps. You decide.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 06 FINAL CTA -->
+<section class="section section--deep gc-final" id="final" aria-labelledby="final-title">
+  <div class="container">
+    <div class="gc-final__inner">
+      <div class="gia-core gc-final__gia" aria-hidden="true"><div class="gia-core__photo"><picture><source srcset="assets/images/gia.webp" type="image/webp"><img src="assets/images/gia.png" alt="" width="400" height="400" loading="lazy" decoding="async"></picture></div></div>
+      <h2 class="final__h" id="final-title">Where shall we start?</h2>
+      <p class="lead">You don&rsquo;t need to know what opportunities exist. Just tell Gia what you want to achieve, in your own words.</p>
+
+      <ul class="gc-prompts" aria-label="Example requests">
+        <li><button class="gc-prompt" type="button" data-prompt="save">Help me save on everyday purchases</button></li>
+        <li><button class="gc-prompt" type="button" data-prompt="earn">Find a 20-minute way to earn extra</button></li>
+        <li><button class="gc-prompt" type="button" data-prompt="compare">Compare my current internet plan</button></li>
+        <li><button class="gc-prompt" type="button" data-prompt="projects">Projects that fit my experience</button></li>
+      </ul>
+
+      <form class="gc-ask" id="gc-ask" action="#final" novalidate>
+        <label class="sr-only" for="gc-ask-input">Your message to Gia</label>
+        <input class="gc-ask__input" id="gc-ask-input" name="q" type="text" autocomplete="off" placeholder="Gia, what opportunities do you have for me?">
+        <button class="btn btn--primary gc-ask__btn" type="submit">Explore with Gia</button>
+      </form>
+
+      <div class="gc-answer" id="gc-answer" aria-live="polite" hidden>
+        <div class="gc-quote">
+          <span class="gc-ava gc-ava--sm" aria-hidden="true"><picture><source srcset="assets/images/gia.webp" type="image/webp"><img src="assets/images/gia.png" width="400" height="400" alt="" loading="lazy" decoding="async"></picture></span>
+          <p class="bubble bubble--gia"><span class="sr-only">Gia: </span><span data-answer-text></span></p>
+        </div>
+        <p class="caption gc-answer__note"><span class="badge badge--plain">Demo</span> A preview of how Gia answers. The full conversation opens when Global Connections launches.</p>
+      </div>
+
+      <p class="gc-final__tag">Global Connections &mdash; opportunities that find you.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer gcs-footer">
+  <div class="container">
+    <div class="gcs-footer__top">
+      <a class="footer-logo" href="#intro" aria-label="Glonari, back to top">
+        <picture>
+          <source media="(max-width: 768px)" srcset="assets/logo/glonari-lockup-stacked.webp" width="760" height="359">
+          <img src="assets/logo/glonari-lockup-horizontal.webp" width="840" height="222" alt="Glonari. Experience more.">
+        </picture>
+      </a>
+      <p class="small footer__about">Global Connections&reg; &mdash; opportunities that find you. Gia is your personal AI agent by Glonari.</p>
+    </div>
+    <div class="footer__info">
+      <p class="caption"><strong>Important information.</strong> Global Connections is coming next. Examples, amounts and offers on this page are illustrative and do not guarantee availability, rewards or income. Availability depends on the product rollout and connected partners. Your profile is not sold to merchants.</p>
+    </div>
+    <p class="caption mono footer__legal">© 2026 Glonari.</p>
+  </div>
+</footer>
+
+<script src="js/site.js"></script>
+<script src="js/components.js"></script>
+<script src="js/page.js"></script>
+</body>
+</html>

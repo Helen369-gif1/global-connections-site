@@ -1,0 +1,398 @@
+/* Global Connections — standalone one-page site (index.html) — page styles. Shared components: css/components.css.
+   Six blocks: 01 hero (video + chat preview + benefits), 02 how it works (story cards), 03 what Gia can do
+   (list selector + one card), 04 example dialogue (chat with Gia's visible work), 05 personal & trust, 06 final CTA.
+   Animated states are armed by js/pages/global-connections.js (.is-armed); without JS or under reduced motion
+   every block shows its final state. */
+
+.gc-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+.gc-icon {
+  width: 24px; height: 24px; flex: none; color: var(--gp-gold);
+  fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+}
+.gc-eyebrow { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+.gc-disclaimer { margin-top: 32px; max-width: 720px; }
+
+/* Gia's avatar in chat mocks: her photo, 1.5px gold ring, faint glow (DS 8.6) */
+.gc-ava {
+  width: 36px; height: 36px; flex: none; border-radius: 50%; overflow: hidden; display: block;
+  border: 1.5px solid var(--gp-gold-mid); box-shadow: 0 0 12px rgba(242, 179, 90, .25); background: var(--gp-surface-2);
+}
+.gc-ava > picture { display: contents; }
+.gc-ava img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; display: block; }
+.gc-ava--sm { width: 32px; height: 32px; }
+
+/* ===== Chat window (01 preview, 04 example) ===== */
+.gc-chat { display: flex; flex-direction: column; overflow: hidden; }
+.gc-chat__head {
+  display: flex; align-items: center; gap: 10px; padding: 12px 16px;
+  border-bottom: 1px solid var(--gp-glass-border);
+}
+.gc-chat__name { font-family: var(--font-display); font-size: 18px; font-weight: 600; line-height: 1; color: var(--gp-champagne); }
+.gc-chat__state {
+  display: inline-flex; align-items: center; gap: 6px; font-size: 11px; letter-spacing: .04em; color: var(--gp-text-muted);
+}
+.gc-chat__state::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.gc-chat__state.is-working { color: var(--gp-blue); }
+.gc-chat__state.is-ready { color: var(--gp-gold-mid); }
+.gc-chat__badge { margin-left: auto; }
+.gc-chat__body { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 16px; }
+.gc-chat__body > p { margin: 0; }
+.gc-chat__body > .bubble--user { margin-left: auto; }
+.gc-chat__input {
+  display: flex; align-items: center; margin: 0 16px 16px; min-height: 40px; padding: 0 14px;
+  border: 1px solid var(--gp-line); border-radius: 999px; font-size: 13px; color: var(--gp-text-muted);
+  text-decoration: none; transition: border-color .2s var(--ease), color .2s var(--ease);
+}
+a.gc-chat__input:hover { border-color: var(--gp-gold-mid); color: var(--gp-text-2); }
+a.gc-chat__input:focus-visible, .gc-mini:focus-visible { outline: 2px solid var(--gp-gold); outline-offset: 2px; }
+
+.gc-typing { display: none; align-items: center; gap: 4px; padding: 10px 14px; width: max-content; border-radius: 12px; border: 1px solid var(--gp-glass-border); background: rgba(242, 179, 90, .07); }
+.gc-typing.is-on { display: inline-flex; }
+.gc-typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--gp-gold-mid); animation: gc-typing 1s infinite ease-in-out; }
+.gc-typing span:nth-child(2) { animation-delay: .15s; }
+.gc-typing span:nth-child(3) { animation-delay: .3s; }
+@keyframes gc-typing { 0%, 80%, 100% { opacity: .3; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-3px); } }
+
+/* Gia's visible work between messages (one mono line per action) */
+.gc-log { display: flex; align-items: baseline; gap: 8px; font-size: 11.5px; line-height: 1.5; color: var(--gp-text-muted); padding-left: 4px; }
+.gc-log::before { content: ""; flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--gp-blue); transform: translateY(-1px); }
+
+/* Step-by-step playback: steps keep their space (no layout jump), they only fade in */
+.gc-chat.is-armed .gc-step { opacity: 0; transform: translateY(10px); }
+.gc-chat .gc-step { transition: opacity .45s var(--ease), transform .45s var(--ease); }
+.gc-chat.is-armed .gc-step.is-shown { opacity: 1; transform: none; }
+
+/* ===== 01 Hero ===== */
+.gc-hero__grid {
+  display: grid; align-items: end; column-gap: 32px;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 300px) minmax(0, 440px);
+  grid-template-areas: ". chat text" ". benefits benefits";
+}
+.gc-hero__grid > * { min-width: 0; }
+.gc-hero .gc-hero__text { grid-area: text; max-width: none; margin: 0; align-self: center; }
+.gc-hero__chat { grid-area: chat; margin: 0; }
+/* Gia stands on the left of the video and presents to her right: the chat sits beside her hand, the text on the right. */
+.gc-hero .page-hero__title { font-size: clamp(40px, 4.4vw, 62px); line-height: 1.06; }
+.gc-chat--mini .gc-chat__body { padding: 14px; gap: 8px; }
+.gc-chat--mini .bubble { font-size: 13px; }
+.gc-hero__note { margin-top: 8px; font-size: 12px; text-shadow: 0 1px 12px rgba(0, 0, 0, .6); }
+.gc-minis { list-style: none; margin: 4px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.gc-mini {
+  display: grid; gap: 2px; height: 100%; padding: 10px; border-radius: 10px; text-decoration: none;
+  border: 1px solid var(--gp-glass-border); background: rgba(242, 179, 90, .04);
+  transition: border-color .2s var(--ease), background-color .2s var(--ease);
+}
+.gc-mini:hover { border-color: var(--gp-glass-border-active); background: rgba(242, 179, 90, .08); }
+.gc-mini__label { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--gp-copper); }
+.gc-mini__value { font-size: 15px; font-weight: 600; line-height: 1.25; color: var(--gp-gold); }
+.gc-mini__cap { font-size: 11.5px; line-height: 1.35; color: var(--gp-text-muted); }
+.gc-benefits {
+  grid-area: benefits; list-style: none; margin: 48px 0 0; padding: 20px 0 0; display: flex; flex-wrap: wrap; gap: 16px 40px;
+  border-top: 1px solid var(--gp-glass-border); font-size: 15px; font-weight: 500; color: var(--gp-text);
+}
+.gc-benefits li { display: inline-flex; align-items: center; gap: 10px; }
+.gc-benefits .gc-icon { width: 20px; height: 20px; }
+@media (max-width: 1280px) {
+  .gc-hero__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 520px); grid-template-areas: ". text" ". chat" ". benefits"; }
+  .gc-hero__chat { margin-top: 40px; }
+  .gc-benefits { margin-top: 32px; }
+}
+/* Phones: the hero is taller than the screen (text, chat, benefits), so the video keeps a band at the top where Gia
+   stays visible and the text starts below her, over a fade into black. */
+@media (max-width: 768px) {
+  .gc-hero { align-items: flex-start; padding-top: calc(var(--header-h) + 44svh); }
+  .gc-hero .page-hero__media { bottom: auto; height: 56svh; }
+  .gc-hero::before {
+    background: linear-gradient(180deg, rgba(5, 4, 2, .45) 0, rgba(5, 4, 2, 0) 18svh, rgba(5, 4, 2, 0) calc(var(--header-h) + 30svh),
+      var(--gp-black) calc(var(--header-h) + 56svh));
+  }
+}
+@media (max-width: 768px) {
+  .gc-hero__grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "text" "chat" "benefits"; }
+  .gc-hero__chat { margin-top: 32px; }
+  .gc-chat--mini .gc-chat__input { display: none; }
+  .gc-benefits { flex-direction: column; gap: 12px; }
+}
+@media (max-width: 420px) {
+  .gc-minis { gap: 6px; }
+  .gc-mini { padding: 8px; }
+  .gc-mini__value { font-size: 14px; }
+}
+
+/* ===== 02 How it works: story cards (Blink "Our story" pattern: one photo fills each card) =====
+   Without JS or under reduced motion: a plain grid (4 / 2 / 1 columns), all cards shown.
+   js/page.js adds .is-pinned: .gc-how__pin is three screens tall, its stage sticks under the header, and the cards
+   join one row as the visitor scrolls (group centered; on phones the newest card centered). It sets --card-w / --card-h. */
+.gc-how__head { max-width: 960px; }
+.gc-stories { margin-top: clamp(64px, 8vh, 96px); }
+.gc-stories__track { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.gc-story {
+  position: relative; overflow: hidden; min-width: 0; min-height: 440px;
+  display: flex; flex-direction: column; justify-content: space-between; gap: 24px; padding: 24px;
+  background: var(--gp-surface); border: 1px solid var(--gp-glass-border); border-radius: 8px;
+  transition: border-color .3s var(--ease), box-shadow .3s var(--ease);
+}
+.gc-story.is-newest { border-color: var(--gp-glass-border-active); box-shadow: 0 0 32px rgba(242, 179, 90, .12); }
+/* Photo fills the card; a dark gradient keeps the top and bottom text readable */
+.gc-story .gc-photo { position: absolute; inset: 0; z-index: 0; margin: 0; }
+.gc-story .gc-photo .media-frame__box { height: 100%; aspect-ratio: auto; border: 0; border-radius: 0; }
+.gc-story::after {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(5, 4, 2, .70) 0%, rgba(5, 4, 2, .15) 24%, rgba(5, 4, 2, .20) 46%, rgba(5, 4, 2, .88) 72%, rgba(5, 4, 2, .96) 100%);
+}
+.gc-story__top, .gc-story__bottom { position: relative; z-index: 2; }
+/* Step indicator: four 4px segments, gold up to the card's own step */
+.gc-story__steps { display: flex; gap: 4px; }
+.gc-story__steps i { flex: 1; height: 4px; border-radius: 2px; background: rgba(246, 240, 231, .25); }
+.gc-story__steps i.is-on { background: var(--gp-gold); }
+.gc-story__num { margin: 12px 0 0; font-size: 12px; font-weight: 600; letter-spacing: .08em; color: var(--gp-copper); }
+.gc-story__of { color: var(--gp-text-muted); font-weight: 500; }
+.gc-story__title { margin: 0; font-family: var(--font-ui); font-size: 22px; font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; color: var(--gp-text); }
+.gc-story__text { margin: 8px 0 0; font-size: 15px; line-height: 1.55; color: var(--gp-text); }
+.gc-story__who { margin: 16px 0 0; font-size: 11px; line-height: 1.5; letter-spacing: .02em; color: var(--gp-text-2); }
+.gc-story__who span { color: var(--gp-gold); font-weight: 600; }
+.gc-how__line { margin-top: 64px; }
+@media (max-width: 1100px) { .gc-stories__track { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 768px) { .gc-stories__track { grid-template-columns: minmax(0, 1fr); } .gc-story { min-height: 420px; } }
+
+/* Pinned row */
+.gc-how.is-pinned { padding-top: 0; }
+.gc-how.is-pinned .gc-how__pin { height: 300vh; }
+.gc-how.is-pinned .gc-how__stage {
+  position: sticky; top: var(--header-h); overflow: hidden;
+  height: calc(100vh - var(--header-h)); height: calc(100svh - var(--header-h));
+  display: flex; flex-direction: column; justify-content: center; padding-block: 48px;
+}
+.gc-how.is-pinned .gc-stories__track { position: relative; display: flex; justify-content: center; align-items: flex-start; }
+.gc-how.is-pinned .gc-story {
+  flex: none; width: var(--card-w, 264px); height: var(--card-h, 480px); min-height: 0; transform-origin: top right;
+}
+/* Not yet in the row: out of the flow, so the row stays centered; .is-leaving is the card shrinking out */
+.gc-how.is-pinned .gc-story.is-out, .gc-how.is-pinned .gc-story.is-leaving { position: absolute; top: 0; }
+.gc-how.is-pinned .gc-story.is-out { visibility: hidden; }
+/* Phones: the row is wider than the screen; js/page.js shifts it so the newest card is centered */
+@media (max-width: 768px) {
+  .gc-how.is-pinned .gc-stories { width: 100%; max-width: none; padding: 0; }
+  .gc-how.is-pinned .gc-stories__track { justify-content: flex-start; width: max-content; }
+}
+
+/* Photos in cards (temporary, from the earlier pages; DS 8.1 card photo, 16:9) */
+.gc-photo { margin: 0 0 20px; }
+.gc-area .gc-photo { margin-bottom: 28px; }
+.gc-trust__card .gc-photo { margin-bottom: 24px; }
+
+.gc-dots { display: none; align-items: center; justify-content: center; gap: 8px; margin-top: 20px; }
+.gc-dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--gp-line); transition: background-color .2s var(--ease); }
+.gc-dots i.is-on { background: var(--gp-gold-mid); }
+.gc-dots__count { font-size: 11px; color: var(--gp-text-muted); margin-right: 8px; }
+
+/* ===== 03 What Gia can do: large list selector + one card ===== */
+.gc-areas { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: var(--grid-gap); align-items: start; }
+.gc-areas > * { min-width: 0; }
+.gc-areas__tabs { display: flex; flex-direction: column; border-top: 1px solid var(--gp-line); }
+.gc-area-tab {
+  all: unset; box-sizing: border-box; cursor: pointer; display: flex; align-items: baseline; gap: 20px;
+  padding: 20px 0; border-bottom: 1px solid var(--gp-line); position: relative;
+}
+.gc-area-tab::before {
+  content: ""; position: absolute; left: 0; bottom: -1px; width: 100%; height: 1px; background: var(--gp-gold);
+  transform: scaleX(0); transform-origin: left center; transition: transform .4s var(--ease);
+}
+.gc-area-tab[aria-selected="true"]::before { transform: scaleX(1); }
+.gc-area-tab__num { font-size: 12px; font-weight: 600; letter-spacing: .08em; color: var(--gp-text-muted); transition: color .2s var(--ease); }
+.gc-area-tab__name {
+  font-size: clamp(28px, 3.4vw, 44px); font-weight: 600; line-height: 1.1; letter-spacing: -0.02em;
+  color: var(--gp-text-muted); transition: color .25s var(--ease);
+}
+.gc-area-tab:hover .gc-area-tab__name { color: var(--gp-text); }
+.gc-area-tab[aria-selected="true"] .gc-area-tab__name, .gc-area-tab[aria-selected="true"] .gc-area-tab__num { color: var(--gp-gold); }
+.gc-area-tab:focus-visible { outline: 2px solid var(--gp-gold); outline-offset: 4px; }
+
+.gc-soon { margin-top: 32px; }
+.gc-soon__label { margin: 0 0 12px; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--gp-text-muted); }
+.gc-soon__chips { list-style: none; margin: 0 0 12px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.gc-soon__chips li { padding: 6px 12px; border: 1px dashed var(--gp-line); border-radius: 999px; font-size: 13px; color: var(--gp-text-muted); cursor: default; }
+
+.gc-area {
+  padding: clamp(28px, 3.4vw, 48px); background: var(--gp-surface); border: 1px solid var(--gp-glass-border); border-radius: 8px;
+}
+.gc-area:focus-visible { outline: 2px solid var(--gp-gold); outline-offset: 2px; }
+.gc-area.is-entering { animation: gc-in .45s var(--ease); }
+@keyframes gc-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.gc-area__head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.gc-area__icon { width: 40px; height: 40px; stroke-width: 1.1; }
+.gc-area__title { margin-top: 24px; }
+.gc-area__text { margin: 12px 0 0; font-size: clamp(16px, 1.3vw, 18px); line-height: 1.65; color: var(--gp-text-2); max-width: 520px; }
+
+.gc-quote { display: flex; align-items: flex-end; gap: 12px; margin-top: 32px; }
+.gc-quote .bubble { max-width: none; margin: 0; font-size: 16px; line-height: 1.55; }
+/* Marker highlight on the key phrase of Gia's line; it draws in when the card is shown */
+.gc-quote mark {
+  color: inherit; padding: 0 2px; border-radius: 2px;
+  background: linear-gradient(transparent 52%, rgba(242, 179, 90, .30) 52%) no-repeat left center / 100% 100%;
+  transition: background-size .8s var(--ease) .25s;
+}
+.gc-areas.is-armed .gc-area:not(.is-marked) mark { background-size: 0% 100%; transition: none; }
+
+@media (max-width: 960px) {
+  .gc-areas { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .gc-areas__list { display: contents; }
+  .gc-areas__tabs {
+    order: 1; flex-direction: row; gap: 8px; border-top: 0; overflow-x: auto; scrollbar-width: none;
+    margin-inline: calc(-1 * var(--page-pad)); padding-inline: var(--page-pad);
+  }
+  .gc-areas__tabs::-webkit-scrollbar { display: none; }
+  .gc-area-tab { flex: none; gap: 8px; padding: 10px 16px; border: 1px solid var(--gp-line); border-radius: 999px; }
+  .gc-area-tab::before { display: none; }
+  .gc-area-tab[aria-selected="true"] { border-color: var(--gp-gold); }
+  .gc-area-tab__name { font-size: 15px; letter-spacing: 0; color: var(--gp-text-2); }
+  .gc-areas__panels { order: 2; }
+  .gc-soon { order: 3; margin-top: 8px; }
+  .gc-area-tab:focus-visible { outline-offset: 2px; }
+}
+
+/* ===== 04 Example dialogue: 4/8 split, chat with Gia's visible work ===== */
+.gc-example { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(40px, 5vw, 80px); align-items: start; }
+.gc-example > * { min-width: 0; }
+.gc-example__text { position: sticky; top: calc(var(--header-h) + 32px); }
+.gc-index { list-style: none; margin: 40px 0 0; padding: 0; counter-reset: gc-i; }
+.gc-index li {
+  counter-increment: gc-i; display: flex; gap: 12px; padding: 10px 0 10px 16px; border-left: 1px solid var(--gp-line);
+  font-size: 15px; color: var(--gp-text-muted); transition: color .3s var(--ease), border-color .3s var(--ease);
+}
+.gc-index li::before { content: counter(gc-i, decimal-leading-zero); font-family: var(--font-mono); font-size: 12px; line-height: 1.9; color: inherit; }
+.gc-index li.is-done { color: var(--gp-text-2); }
+.gc-index li.is-now { color: var(--gp-gold); border-left-color: var(--gp-gold); }
+.gc-replay { margin-top: 32px; }
+.gc-replay .gc-icon { width: 16px; height: 16px; }
+
+.gc-chat--full .gc-chat__body { gap: 12px; padding: 20px; }
+.gc-reply { display: grid; gap: 10px; }
+.gc-reply .bubble { margin: 0; }
+.gc-offers { min-width: 0; }
+.gc-offers__track {
+  position: relative; list-style: none; margin: 0; padding: 2px 2px 4px; display: flex; gap: 12px; overflow-x: auto;
+  scroll-snap-type: x mandatory; scrollbar-width: none;
+}
+.gc-offers__track::-webkit-scrollbar { display: none; }
+.gc-offers__track:focus-visible { outline: 2px solid var(--gp-gold); outline-offset: 2px; }
+.gc-offer {
+  flex: 0 0 max(42%, 210px); scroll-snap-align: start; display: flex; flex-direction: column; gap: 4px;
+  padding: 14px; border-radius: 10px; border: 1px solid var(--gp-glass-border); background: rgba(20, 17, 14, .6);
+  transition: border-color .3s var(--ease), background-color .3s var(--ease), opacity .3s var(--ease);
+}
+.gc-offer__label { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--gp-copper); }
+.gc-offer__title { font-size: 15px; font-weight: 600; line-height: 1.3; color: var(--gp-text); }
+.gc-offer__value { font-size: 18px; font-weight: 600; line-height: 1.3; color: var(--gp-gold); }
+.gc-offer__value small { font-size: 12px; font-weight: 500; color: var(--gp-text-muted); }
+.gc-offer__meta { font-size: 11px; color: var(--gp-text-muted); }
+.gc-offer__next { margin-top: 6px; font-size: 13px; line-height: 1.45; color: var(--gp-text-2); text-decoration: underline; text-decoration-color: var(--gp-gold-dark); text-underline-offset: 3px; }
+.gc-offer__chosen { display: none; margin-top: 8px; }
+.gc-offer.is-selected { border-color: var(--gp-glass-border-active); background: rgba(242, 179, 90, .07); }
+.gc-offer.is-selected .gc-offer__chosen, .gc-offer.is-later .gc-offer__chosen { display: inline-flex; }
+.gc-offer.is-later { opacity: .72; }
+.gc-dots--sm { display: flex; justify-content: flex-start; margin-top: 8px; }
+.gc-dots--sm i { width: 5px; height: 5px; }
+
+@media (max-width: 960px) {
+  .gc-example { grid-template-columns: minmax(0, 1fr); }
+  .gc-example__text { position: static; }
+  .gc-index { display: none; }
+}
+@media (max-width: 768px) {
+  .gc-chat--full { height: 520px; }
+  .gc-chat--full .gc-chat__body { flex: 1; min-height: 0; overflow-y: auto; padding: 16px; }
+  .gc-chat--full .gc-chat__badge { display: none; }
+  .gc-offer { flex-basis: 74%; }
+}
+
+/* ===== 05 Personal & trust ===== */
+.gc-trust { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.gc-trust__card { min-width: 0; display: flex; flex-direction: column; padding: clamp(28px, 3.4vw, 48px); }
+.gc-memory { background: linear-gradient(rgba(242, 179, 90, .05), rgba(242, 179, 90, .05)), var(--gp-glass); }
+.gc-interests { border: 1px solid var(--gp-glass-border); border-radius: 16px; }
+.gc-pill {
+  align-self: flex-start; margin: 0 0 24px; padding: 5px 10px; border: 1px solid var(--gp-glass-border); border-radius: 999px;
+  font-size: 11px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--gp-gold-mid);
+}
+.gc-trust__text { margin: 12px 0 0; font-size: 17px; line-height: 1.65; color: var(--gp-text-2); }
+.gc-prefs { list-style: none; margin: 32px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.gc-prefs li {
+  display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px 8px 10px; border-radius: 999px;
+  border: 1px solid var(--gp-glass-border); background: rgba(242, 179, 90, .06); font-size: 14px; color: var(--gp-text);
+}
+.gc-prefs .gc-icon { width: 16px; height: 16px; color: var(--gp-gold-mid); stroke-width: 2; }
+.gc-trust__foot { margin-top: auto; padding-top: 32px; }
+.gc-points { list-style: none; margin: 32px 0 0; padding: 0; display: grid; gap: 20px; }
+.gc-points li { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 14px; font-size: 16px; line-height: 1.6; color: var(--gp-text-2); }
+.gc-trust__tagline { margin-top: auto; padding-top: 32px; font-size: clamp(18px, 1.6vw, 22px); }
+@media (max-width: 960px) { .gc-trust { grid-template-columns: minmax(0, 1fr); } }
+
+/* ===== 06 Final CTA: centered, prompt chips, input with the button inside ===== */
+.gc-final__inner { max-width: 760px; margin-inline: auto; text-align: center; }
+.gc-final__gia { --core: 112px; margin: 0 auto 40px; }
+.gc-final .lead { margin-inline: auto; }
+.gc-prompts { list-style: none; margin: 40px 0 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.gc-prompt {
+  all: unset; box-sizing: border-box; cursor: pointer; padding: 10px 16px; border-radius: 999px; white-space: nowrap;
+  border: 1px solid var(--gp-glass-border); font-size: 14px; color: var(--gp-text-2);
+  transition: border-color .2s var(--ease), color .2s var(--ease), background-color .2s var(--ease);
+}
+.gc-prompt:hover { border-color: var(--gp-glass-border-active); color: var(--gp-text); }
+.gc-prompt[aria-pressed="true"] { border-color: var(--gp-gold); color: var(--gp-gold); background: rgba(242, 179, 90, .06); }
+.gc-prompt:focus-visible { outline: 2px solid var(--gp-gold); outline-offset: 2px; }
+.gc-ask {
+  display: flex; align-items: center; gap: 8px; margin-top: 24px; padding: 6px; text-align: left;
+  border: 1px solid var(--gp-glass-border); border-radius: 12px; background: var(--gp-surface);
+  transition: border-color .2s var(--ease), box-shadow .2s var(--ease);
+}
+.gc-ask:focus-within { border-color: var(--gp-gold); box-shadow: 0 0 0 3px rgba(242, 179, 90, .12); }
+.gc-ask__input {
+  flex: 1; min-width: 0; min-height: 48px; padding: 0 14px; border: 0; background: transparent; outline: none;
+  font-family: var(--font-ui); font-size: 16px; color: var(--gp-text);
+}
+.gc-ask__input::placeholder { color: var(--gp-text-muted); }
+.gc-answer { margin: 24px auto 0; max-width: 640px; text-align: left; }
+.gc-answer .gc-quote { margin-top: 0; }
+.gc-answer.is-entering { animation: gc-in .45s var(--ease); }
+.gc-answer__note { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 12px; padding-left: 44px; }
+.gc-answer__cta { margin: 16px 0 0 44px; }
+.gc-final__tag { margin: 56px 0 0; font-size: 15px; color: var(--gp-text-muted); }
+.gc-final__next { margin: 12px 0 0; font-size: 14px; }
+.gc-final__next a { color: var(--gp-gold); text-underline-offset: 3px; }
+.gc-final__next a:focus-visible { outline: 2px solid var(--gp-gold); outline-offset: 2px; }
+@media (max-width: 768px) {
+  .gc-final__gia { --core: 88px; margin-bottom: 32px; }
+  .gc-prompts {
+    flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; scrollbar-width: none;
+    margin-inline: calc(-1 * var(--page-pad)); padding: 2px var(--page-pad);
+  }
+  .gc-prompts::-webkit-scrollbar { display: none; }
+  .gc-ask { flex-direction: column; align-items: stretch; }
+  .gc-ask__btn { width: 100%; }
+  .gc-answer__note { padding-left: 0; }
+  .gc-answer__cta { margin-left: 0; }
+}
+
+/* ===== Reduced motion: final states, no transitions ===== */
+@media (prefers-reduced-motion: reduce) {
+  .gc-chat .gc-step, .gc-quote mark, .gc-area-tab::before { transition: none; }
+  .gc-typing span { animation: none; }
+  .gc-area.is-entering, .gc-answer.is-entering { animation: none; }
+}
+
+/* ===== Standalone site shell (one page): a single header row with anchor links to blocks 2-5 ===== */
+:root { --subnav-h: 0px; }
+.gcs-header .site-header__row { transition: height .25s var(--ease); }
+.gcs-header.is-compact .site-header__row { height: 60px; }
+.gcs-header .site-nav a[aria-current="true"] { color: var(--gp-gold); }
+.gcs-header .site-nav a[aria-current="true"]::after { content: ""; position: absolute; left: 14px; right: 14px; bottom: 0; height: 2px; background: var(--gp-gold); }
+.gcs-header .mm a[aria-current="true"] { color: var(--gp-gold); }
+@media (max-width: 1100px) {
+  /* The CTA stays visible next to the menu button */
+  .gcs-header .header-cta { display: inline-flex; margin-left: auto; }
+  .gcs-header .menu-toggle { margin-left: 0; }
+}
+@media (max-width: 420px) { .gcs-header .brand__name { display: none; } }
+.gcs-footer__top { display: grid; gap: 16px; justify-items: start; }
+@media (prefers-reduced-motion: reduce) { .gcs-header .site-header__row { transition: none; } }
