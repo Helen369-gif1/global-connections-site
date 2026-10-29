@@ -29,15 +29,14 @@ Visual style taken from the Gia site (tokens, components, header and footer styl
     css/page.css        everything specific to this page
     js/site.js          menu, scroll progress, reveal (from the Gia site)
     js/scroll-hero.js   01 hero: draws the frame for the scroll position on a canvas, captions, frame loading
-    js/components.js    play-once video, photo breather, staggered entry, shine (from the Gia site)
+    js/components.js    play-once video (not used on this page now), photo breather, staggered entry, shine (from the Gia site)
     js/page.js          chats (03 options, 04 example), story cards, area tabs, prompt chips, header links
     assets/             logo, Gia's photo, photos
     assets/scroll-hero/ 01 hero frames (one shot: dark corridor -> lobby -> Gia close up on the right)
-        desktop/f000.webp ... f182.webp   183 frames 1280x720 (24 fps, about 7.6 s)
-        mobile/f000.webp ... f182.webp    the same frames 960x540, used up to 768px wide
+        desktop/f000.webp ... f182.webp   183 frames 1280x720 (24 fps, about 7.6 s); f000 is preloaded above 768px
+        mobile/f000.webp ... f182.webp    the same frames 960x540, used up to 768px wide; f000 is preloaded there
         poster-first.webp                 first frame, shown at once while the frames load
         still-last.webp                   last frame, the still without JS or under reduced motion
-    assets/video/       old hero video (hero-gc.mp4), no longer used on the page
 
 ## Temporary photos (replace with final ones: 16:9, no readable numbers or charts)
 
