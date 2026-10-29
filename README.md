@@ -32,7 +32,7 @@ Visual style taken from the Gia site (tokens, components, header and footer styl
 
 ## Temporary photos (replace with final ones: 16:9, no readable numbers or charts)
 
-    How it works        step 1 quiet-moment, step 2 enables-capabilities, step 3 couple-comparing-homes, step 4 hgw-direction
+    How it works        step 1 quiet-moment, step 2 enables-capabilities, step 3 pick-option, step 4 hgw-direction
     What Gia can do     Save mp-money, Earn extra enables-economic, Work & goals enables-connections
     Personal & trust    Gia remembers mem-pro, Your interests come first gc-hero-workspace
     Photo breather      vista-gc
