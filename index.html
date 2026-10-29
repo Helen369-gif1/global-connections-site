@@ -69,51 +69,38 @@
   <symbol id="gc-i-replay" viewBox="0 0 24 24"><path d="M5 12 A7 7 0 1 0 7.2 6.9"/><polyline points="7.5,3 7.5,7 3.5,7"/></symbol>
 </svg>
 
-<!-- 01 HERO -->
-<section class="page-hero page-hero--right page-hero--below-header gc-hero" id="intro" aria-labelledby="intro-title">
-  <div class="page-hero__media" style="--focus: 25% 20%">
-    <video data-play-once data-delay="800" data-still="assets/images/hero-gc-still.webp" muted playsinline preload="auto" poster="assets/images/hero-gc-poster.webp" width="1280" height="720" aria-hidden="true">
-      <source src="assets/video/hero-gc.mp4" type="video/mp4">
-    </video>
-  </div>
-  <div class="container gc-hero__grid">
-    <div class="page-hero__text gc-hero__text">
-      <p class="eyebrow gc-eyebrow">Global Connections&reg; <span class="badge badge--next">Coming next</span></p>
-      <h1 class="page-hero__title" id="intro-title">Opportunities that find you</h1>
-      <p class="lead">Gia is your personal AI agent at Glonari. She finds ways to save, earn extra and put your experience to work &mdash; and explains what fits you best.</p>
-      <div class="btn-row btn-row--stack">
-        <a class="btn btn--primary" href="#final">Explore with Gia</a>
-        <a class="btn btn--secondary" href="#how-it-works">How it works</a>
+<!-- 01 HERO: frames of one shot follow the scroll (js/scroll-hero.js), captions on the left.
+     Without JS or under reduced motion: one screen, the last frame as a still, every caption at once. -->
+<section class="gc-scrollhero" id="intro" aria-labelledby="intro-title" data-gc-scrollhero>
+  <div class="gc-scrollhero__stage">
+    <div class="gc-scrollhero__media">
+      <picture class="gc-scrollhero__poster">
+        <source media="(prefers-reduced-motion: reduce)" srcset="assets/scroll-hero/still-last.webp">
+        <img src="assets/scroll-hero/poster-first.webp" width="1280" height="720" alt="" fetchpriority="high" decoding="async">
+      </picture>
+      <img class="gc-scrollhero__still" src="assets/scroll-hero/still-last.webp" width="1280" height="720" alt="" loading="lazy" decoding="async">
+      <canvas class="gc-scrollhero__canvas" aria-hidden="true"></canvas>
+    </div>
+    <div class="container gc-scrollhero__caps">
+      <div class="gc-scrollhero__cap gc-scrollhero__cap--intro" data-cap="-1 0 .15 .18">
+        <p class="eyebrow gc-eyebrow">Global Connections&reg; <span class="badge badge--next">Coming next</span></p>
+        <h1 class="page-hero__title" id="intro-title">Opportunities that find you</h1>
+      </div>
+      <p class="gc-scrollhero__cap gc-scrollhero__word" data-cap=".25 .29 .39 .42"><svg class="gc-icon" aria-hidden="true"><use href="#gc-i-search"/></svg>Less searching.</p>
+      <p class="gc-scrollhero__cap gc-scrollhero__word" data-cap=".45 .49 .57 .60"><svg class="gc-icon" aria-hidden="true"><use href="#gc-i-tasks"/></svg>Less busywork.</p>
+      <div class="gc-scrollhero__cap" data-cap=".65 .69 .81 .84">
+        <p class="eyebrow">Meet Gia</p>
+        <p class="lead">Gia is your personal AI agent at Glonari. She finds ways to save, earn extra and put your experience to work &mdash; and explains what fits you best.</p>
+      </div>
+      <div class="gc-scrollhero__cap" data-cap=".88 .92 2 2">
+        <p class="gc-scrollhero__word"><svg class="gc-icon" aria-hidden="true"><use href="#gc-i-spark"/></svg>More value.</p>
+        <div class="btn-row btn-row--stack gc-scrollhero__actions" data-cap-actions>
+          <a class="btn btn--primary" href="#final">Explore with Gia</a>
+          <a class="btn btn--secondary" href="#how-it-works">How it works</a>
+        </div>
       </div>
     </div>
-
-    <figure class="gc-hero__chat">
-      <div class="glass gc-chat gc-chat--mini" id="gc-hero-chat" data-gc-chat="hero">
-        <div class="gc-chat__head">
-          <span class="gc-ava"><picture><source srcset="assets/images/gia.webp" type="image/webp"><img src="assets/images/gia.png" width="400" height="400" alt="" decoding="async"></picture></span>
-          <span class="gc-chat__name">Gia</span>
-          <span class="gc-chat__state mono" data-chat-state aria-hidden="true">listening</span>
-        </div>
-        <div class="gc-chat__body">
-          <p class="bubble bubble--user gc-step" data-step="1"><span class="sr-only">You: </span>I want to cut costs and earn a bit extra</p>
-          <p class="gc-typing gc-step" data-step="2" data-typing aria-hidden="true"><span></span><span></span><span></span></p>
-          <p class="bubble bubble--gia gc-step" data-step="3" data-state="found 3 options"><span class="sr-only">Gia: </span>I found 3 options that fit. Want to see them?</p>
-          <ul class="gc-minis" aria-label="Options Gia found">
-            <li class="gc-step" data-step="4"><a class="gc-mini" href="#what-gia-does" data-area="save"><span class="gc-mini__label mono">Save</span><span class="gc-mini__value">$15/mo</span><span class="gc-mini__cap">Internet plan</span></a></li>
-            <li class="gc-step" data-step="5"><a class="gc-mini" href="#what-gia-does" data-area="earn"><span class="gc-mini__label mono">Earn</span><span class="gc-mini__value">Survey ~$8</span><span class="gc-mini__cap">About 15 min</span></a></li>
-            <li class="gc-step" data-step="6"><a class="gc-mini" href="#what-gia-does" data-area="work"><span class="gc-mini__label mono">Grow</span><span class="gc-mini__value">Project</span><span class="gc-mini__cap">For your experience</span></a></li>
-          </ul>
-        </div>
-        <div class="gc-chat__input" aria-hidden="true"><span>Ask Gia anything&hellip;</span></div>
-      </div>
-      <figcaption class="caption gc-hero__note">Illustrative preview. Amounts are examples.</figcaption>
-    </figure>
-
-    <ul class="gc-benefits" aria-label="Why use Global Connections">
-      <li><svg class="gc-icon" aria-hidden="true"><use href="#gc-i-search"/></svg>Less searching</li>
-      <li><svg class="gc-icon" aria-hidden="true"><use href="#gc-i-tasks"/></svg>Less busywork</li>
-      <li><svg class="gc-icon" aria-hidden="true"><use href="#gc-i-spark"/></svg>More value</li>
-    </ul>
+    <p class="gc-scrollhero__hint mono" data-cap="-1 0 .02 .05" aria-hidden="true">Scroll<i></i></p>
   </div>
 </section>
 
@@ -197,6 +184,27 @@
 <!-- 03 WHAT GIA CAN DO -->
 <section class="section section--glow gc-can" id="what-gia-does" aria-labelledby="can-title" data-gc-can>
   <div class="container">
+    <figure class="gc-hero__chat">
+      <div class="glass gc-chat gc-chat--mini" id="gc-hero-chat" data-gc-chat="hero">
+        <div class="gc-chat__head">
+          <span class="gc-ava"><picture><source srcset="assets/images/gia.webp" type="image/webp"><img src="assets/images/gia.png" width="400" height="400" alt="" decoding="async"></picture></span>
+          <span class="gc-chat__name">Gia</span>
+          <span class="gc-chat__state mono" data-chat-state aria-hidden="true">listening</span>
+        </div>
+        <div class="gc-chat__body">
+          <p class="bubble bubble--user gc-step" data-step="1"><span class="sr-only">You: </span>I want to cut costs and earn a bit extra</p>
+          <p class="gc-typing gc-step" data-step="2" data-typing aria-hidden="true"><span></span><span></span><span></span></p>
+          <p class="bubble bubble--gia gc-step" data-step="3" data-state="found 3 options"><span class="sr-only">Gia: </span>I found 3 options that fit. Want to see them?</p>
+          <ul class="gc-minis" aria-label="Options Gia found">
+            <li class="gc-step" data-step="4"><a class="gc-mini" href="#what-gia-does" data-area="save"><span class="gc-mini__label mono">Save</span><span class="gc-mini__value">$15/mo</span><span class="gc-mini__cap">Internet plan</span></a></li>
+            <li class="gc-step" data-step="5"><a class="gc-mini" href="#what-gia-does" data-area="earn"><span class="gc-mini__label mono">Earn</span><span class="gc-mini__value">Survey ~$8</span><span class="gc-mini__cap">About 15 min</span></a></li>
+            <li class="gc-step" data-step="6"><a class="gc-mini" href="#what-gia-does" data-area="work"><span class="gc-mini__label mono">Grow</span><span class="gc-mini__value">Project</span><span class="gc-mini__cap">For your experience</span></a></li>
+          </ul>
+        </div>
+        <div class="gc-chat__input" aria-hidden="true"><span>Ask Gia anything&hellip;</span></div>
+      </div>
+      <figcaption class="caption gc-hero__note">Illustrative preview. Amounts are examples.</figcaption>
+    </figure>
     <div class="gc-can__pin">
       <div class="gc-can__stage">
         <div class="reveal gc-can__head">
@@ -451,6 +459,7 @@
 </footer>
 
 <script src="js/site.js"></script>
+<script src="js/scroll-hero.js"></script>
 <script src="js/components.js"></script>
 <script src="js/page.js"></script>
 </body>

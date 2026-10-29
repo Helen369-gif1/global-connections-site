@@ -1,5 +1,5 @@
 /* Global Connections — standalone one-page site (index.html) — page styles. Shared components: css/components.css.
-   Six blocks: 01 hero (video + chat preview + benefits), 02 how it works (story cards), 03 what Gia can do
+   Six blocks: 01 hero (frame sequence driven by scroll + captions), 02 how it works (story cards), 03 what Gia can do
    (list selector + one card), 04 example dialogue (chat with Gia's visible work), 05 personal & trust, 06 final CTA.
    Animated states are armed by js/pages/global-connections.js (.is-armed); without JS or under reduced motion
    every block shows its final state. */
@@ -62,17 +62,94 @@ a.gc-chat__input:focus-visible, .gc-mini:focus-visible { outline: 2px solid var(
 .gc-chat .gc-step { transition: opacity .45s var(--ease), transform .45s var(--ease); }
 .gc-chat.is-armed .gc-step.is-shown { opacity: 1; transform: none; }
 
-/* ===== 01 Hero ===== */
-.gc-hero__grid {
-  display: grid; align-items: end; column-gap: 32px;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 300px) minmax(0, 440px);
-  grid-template-areas: ". chat text" ". benefits benefits";
+/* ===== 01 Hero: frame sequence driven by scroll, captions on the left =====
+   Without JS or under reduced motion: one screen, the last frame as a still (.gc-scrollhero__still, or the poster's
+   reduced-motion source), every caption at once in one block. js/scroll-hero.js adds .is-armed: the section is about
+   four screens tall, the stage sticks to the top, the canvas draws the frame for the scroll progress and sets --v
+   (opacity) and --y (shift) on each [data-cap] for its stretch of progress. Media starts below the solid header. */
+.gc-scrollhero { position: relative; background: var(--gp-black); }
+.gc-scrollhero__stage {
+  position: relative; isolation: isolate; overflow: hidden; min-height: 100vh; min-height: 100svh;
+  display: flex; align-items: center; padding: calc(var(--header-h) + 48px) 0 96px;
 }
-.gc-hero__grid > * { min-width: 0; }
-.gc-hero .gc-hero__text { grid-area: text; max-width: none; margin: 0; align-self: center; }
-.gc-hero__chat { grid-area: chat; margin: 0; }
-/* Gia stands on the left of the video and presents to her right: the chat sits beside her hand, the text on the right. */
-.gc-hero .page-hero__title { font-size: clamp(40px, 4.4vw, 62px); line-height: 1.06; }
+.gc-scrollhero__media { position: absolute; top: var(--header-h); right: 0; bottom: 0; left: 0; z-index: -2; --focus-x: 50%; }
+.gc-scrollhero__poster { display: contents; }
+.gc-scrollhero__media img, .gc-scrollhero__canvas {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--focus-x) 20%;
+}
+.gc-scrollhero__still, .gc-scrollhero__canvas { display: none; }
+.no-js .gc-scrollhero__poster { display: none; }
+.no-js .gc-scrollhero__still { display: block; }
+/* Narrow screens see less than half the frame: keep Gia (right of center at the end) in view */
+@media (max-aspect-ratio: 8/9) { .gc-scrollhero__media { --focus-x: 72%; } }
+/* Darkening behind the captions (as .page-hero), a fade into the next block */
+.gc-scrollhero__stage::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(5, 4, 2, .94) 0%, rgba(5, 4, 2, .84) 34%, rgba(5, 4, 2, .5) 56%, rgba(5, 4, 2, 0) 80%),
+    linear-gradient(180deg, rgba(5, 4, 2, .55) 0%, rgba(5, 4, 2, 0) 22%, rgba(5, 4, 2, 0) 78%, var(--gp-black) 100%);
+}
+.gc-scrollhero__caps { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; }
+.gc-scrollhero__cap { max-width: 560px; margin: 0; text-shadow: 0 1px 24px rgba(0, 0, 0, .45); }
+.gc-scrollhero__cap .lead { margin-top: 0; color: var(--gp-text); }
+.gc-scrollhero__cap .btn { text-shadow: none; }
+.gc-scrollhero__word {
+  display: flex; align-items: center; gap: .4em; margin: 0;
+  font-family: var(--font-display); font-size: clamp(24px, 2.4vw, 32px); font-weight: 600; line-height: 1.1;
+  letter-spacing: -0.01em; color: var(--gp-champagne);
+}
+.gc-scrollhero__word .gc-icon { width: .8em; height: .8em; stroke-width: 1.5; }
+.gc-scrollhero__actions { margin-top: 32px; }
+.gc-scrollhero__hint { display: none; }
+
+/* Armed: the stage sticks for the whole section, captions take turns in one spot */
+.gc-scrollhero.is-armed { height: 420vh; }
+.gc-scrollhero.is-armed .gc-scrollhero__stage {
+  position: sticky; top: 0; height: 100vh; height: 100svh; min-height: 0; padding: 0; display: block;
+}
+.gc-scrollhero.is-armed .gc-scrollhero__canvas { display: block; }
+.gc-scrollhero.is-armed .gc-scrollhero__caps {
+  position: absolute; top: var(--header-h); right: 0; bottom: 0; left: 0;
+  display: grid; align-items: center; padding-block: 48px 96px;
+}
+.gc-scrollhero.is-armed .gc-scrollhero__cap {
+  grid-area: 1 / 1; opacity: var(--v, 0); transform: translateY(var(--y, 24px)); will-change: opacity, transform;
+}
+.gc-scrollhero.is-armed .gc-scrollhero__cap:not(.is-on) { pointer-events: none; }
+.gc-scrollhero.is-armed .gc-scrollhero__word { font-size: clamp(40px, 5.4vw, 76px); line-height: 1.04; white-space: nowrap; }
+.gc-scrollhero.is-armed .gc-scrollhero__cap--intro .gc-eyebrow { margin-bottom: 24px; }
+.gc-scrollhero.is-armed .gc-scrollhero__hint {
+  position: absolute; left: 50%; bottom: 24px; margin: 0; display: flex; flex-direction: column; align-items: center; gap: 10px;
+  font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--gp-text-2);
+  opacity: var(--v, 0); transform: translateX(-50%);
+}
+.gc-scrollhero__hint i { position: relative; width: 1px; height: 40px; overflow: hidden; background: rgba(246, 240, 231, .2); }
+.gc-scrollhero__hint i::after {
+  content: ""; position: absolute; left: 0; top: 0; width: 100%; height: 50%; background: var(--gp-gold);
+  animation: gc-hint 1.8s var(--ease) infinite;
+}
+@keyframes gc-hint { from { transform: translateY(-100%); } to { transform: translateY(200%); } }
+
+/* Phones: the frame fills the screen and the captions sit at the bottom over a stronger fade (as .page-hero) */
+@media (max-width: 768px) {
+  .gc-scrollhero__stage { align-items: flex-end; padding-bottom: 72px; }
+  .gc-scrollhero__stage::before {
+    background: linear-gradient(180deg, rgba(5, 4, 2, .55) 0%, rgba(5, 4, 2, .1) 28%, rgba(5, 4, 2, .7) 52%, rgba(5, 4, 2, .94) 74%, var(--gp-black) 100%);
+  }
+  /* Static: every caption is taller than the screen, so the still keeps a band at the top where Gia stays visible */
+  .gc-scrollhero:not(.is-armed) .gc-scrollhero__stage { padding-top: calc(var(--header-h) + 44svh); }
+  .gc-scrollhero:not(.is-armed) .gc-scrollhero__media { bottom: auto; height: 56svh; }
+  .gc-scrollhero:not(.is-armed) .gc-scrollhero__stage::before {
+    background: linear-gradient(180deg, rgba(5, 4, 2, .45) 0, rgba(5, 4, 2, 0) 18svh, rgba(5, 4, 2, 0) calc(var(--header-h) + 30svh),
+      var(--gp-black) calc(var(--header-h) + 56svh));
+  }
+  .gc-scrollhero.is-armed { height: 360vh; }
+  .gc-scrollhero.is-armed .gc-scrollhero__caps { align-items: end; padding-bottom: 104px; }
+  .gc-scrollhero__actions { margin-top: 24px; }
+}
+
+/* ===== 01 preview chat (moved to 03 for now) ===== */
+.gc-hero__chat { max-width: 360px; margin: 0 0 var(--section-pad); }
 .gc-chat--mini .gc-chat__body { padding: 14px; gap: 8px; }
 .gc-chat--mini .bubble { font-size: 13px; }
 .gc-hero__note { margin-top: 8px; font-size: 12px; text-shadow: 0 1px 12px rgba(0, 0, 0, .6); }
@@ -86,33 +163,7 @@ a.gc-chat__input:focus-visible, .gc-mini:focus-visible { outline: 2px solid var(
 .gc-mini__label { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--gp-copper); }
 .gc-mini__value { font-size: 15px; font-weight: 600; line-height: 1.25; color: var(--gp-gold); }
 .gc-mini__cap { font-size: 11.5px; line-height: 1.35; color: var(--gp-text-muted); }
-.gc-benefits {
-  grid-area: benefits; list-style: none; margin: 48px 0 0; padding: 20px 0 0; display: flex; flex-wrap: wrap; gap: 16px 40px;
-  border-top: 1px solid var(--gp-glass-border); font-size: 15px; font-weight: 500; color: var(--gp-text);
-}
-.gc-benefits li { display: inline-flex; align-items: center; gap: 10px; }
-.gc-benefits .gc-icon { width: 20px; height: 20px; }
-@media (max-width: 1280px) {
-  .gc-hero__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 520px); grid-template-areas: ". text" ". chat" ". benefits"; }
-  .gc-hero__chat { margin-top: 40px; }
-  .gc-benefits { margin-top: 32px; }
-}
-/* Phones: the hero is taller than the screen (text, chat, benefits), so the video keeps a band at the top where Gia
-   stays visible and the text starts below her, over a fade into black. */
-@media (max-width: 768px) {
-  .gc-hero { align-items: flex-start; padding-top: calc(var(--header-h) + 44svh); }
-  .gc-hero .page-hero__media { bottom: auto; height: 56svh; }
-  .gc-hero::before {
-    background: linear-gradient(180deg, rgba(5, 4, 2, .45) 0, rgba(5, 4, 2, 0) 18svh, rgba(5, 4, 2, 0) calc(var(--header-h) + 30svh),
-      var(--gp-black) calc(var(--header-h) + 56svh));
-  }
-}
-@media (max-width: 768px) {
-  .gc-hero__grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "text" "chat" "benefits"; }
-  .gc-hero__chat { margin-top: 32px; }
-  .gc-chat--mini .gc-chat__input { display: none; }
-  .gc-benefits { flex-direction: column; gap: 12px; }
-}
+@media (max-width: 768px) { .gc-chat--mini .gc-chat__input { display: none; } }
 @media (max-width: 420px) {
   .gc-minis { gap: 6px; }
   .gc-mini { padding: 8px; }
@@ -402,7 +453,7 @@ a.gc-chat__input:focus-visible, .gc-mini:focus-visible { outline: 2px solid var(
 /* ===== Reduced motion: final states, no transitions ===== */
 @media (prefers-reduced-motion: reduce) {
   .gc-chat .gc-step, .gc-quote mark, .gc-area-tab::before { transition: none; }
-  .gc-typing span { animation: none; }
+  .gc-typing span, .gc-scrollhero__hint i::after { animation: none; }
   .gc-area.is-entering, .gc-answer.is-entering { animation: none; }
 }
 

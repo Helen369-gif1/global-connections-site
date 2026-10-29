@@ -9,7 +9,7 @@ Visual style taken from the Gia site (tokens, components, header and footer styl
 
 ## Blocks
 
-    01  Hero: Gia video + chat preview     #intro
+    01  Hero: scroll-driven frame sequence + captions   #intro
     02  How it works (4 story cards)       #how-it-works
     03  What Gia can do (Save / Earn extra / Work & goals; pinned, tabs switch on scroll)   #what-gia-does
     04  Example dialogue                   #example
@@ -26,9 +26,16 @@ Visual style taken from the Gia site (tokens, components, header and footer styl
     css/shell.css       header, mobile menu, footer styles (from the Gia site)
     css/page.css        everything specific to this page
     js/site.js          menu, scroll progress, reveal (from the Gia site)
+    js/scroll-hero.js   01 hero: draws the frame for the scroll position on a canvas, captions, frame loading
     js/components.js    play-once video, photo breather, staggered entry, shine (from the Gia site)
     js/page.js          chats, story cards, area tabs, prompt chips, header links
-    assets/             logo, Gia's photo, hero video, photos
+    assets/             logo, Gia's photo, photos
+    assets/scroll-hero/ 01 hero frames (one shot: dark corridor -> lobby -> Gia close up on the right)
+        desktop/f000.webp ... f182.webp   183 frames 1280x720 (24 fps, about 7.6 s)
+        mobile/f000.webp ... f182.webp    the same frames 960x540, used up to 768px wide
+        poster-first.webp                 first frame, shown at once while the frames load
+        still-last.webp                   last frame, the still without JS or under reduced motion
+    assets/video/       old hero video (hero-gc.mp4), no longer used on the page
 
 ## Temporary photos (replace with final ones: 16:9, no readable numbers or charts)
 
