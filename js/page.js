@@ -1,6 +1,6 @@
 /* Global Connections — standalone one-page site (index.html) — page script. Needs js/site.js and js/components.js first.
    01 hero chat preview and 04 example dialogue (step-by-step playback, Replay), 02 story cards (pinned row, cards join on scroll),
-   03 area selector (ARIA tabs, marker highlight), 06 prompt chips and the demo answer.
+   03 area selector (ARIA tabs, marker highlight; pinned scene, tabs switch on scroll), 06 prompt chips and the demo answer.
    Without JS or under reduced motion every block shows its final state. Missing elements never throw. */
 (() => {
   const reduce = window.GiaSite ? window.GiaSite.reduce : window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -44,6 +44,108 @@
     if (focus) tab.focus();
     tab.scrollIntoView && window.matchMedia('(max-width: 960px)').matches && tab.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: reduce ? 'auto' : 'smooth' });
   };
+
+  /* 03 pinned scene: scroll progress p through .gc-can__pin picks the tab: [0, 1/3) Save, [1/3, 2/3) Earn extra,
+     [2/3, 1] Work & goals. A click, an arrow key or a hero mini card selects the tab at once and scrolls smoothly to
+     the middle of its third; scroll-driven switching waits until the page gets there (or the visitor scrolls).
+     Not pinned at 960px and below, when the card photo would be shorter than MIN_PHOTO_H, under reduced motion
+     or without subgrid: tabs switch on click as before. */
+  const can = areas && areas.closest('[data-gc-can]');
+  const canPin = can && can.querySelector('.gc-can__pin');
+  const canStage = can && can.querySelector('.gc-can__stage');
+  const canHead = can && can.querySelector('.gc-can__head');
+  const canList = areas && areas.querySelector('.gc-areas__list');
+  const canPanels = areaTabs.map((t) => document.getElementById(t.getAttribute('aria-controls'))).filter(Boolean);
+  const narrowMQ = window.matchMedia('(max-width: 960px)');
+  const MIN_PHOTO_H = 140; // below this the stage is too short for the card: keep the plain layout
+  let canPinned = false, canStuck = false, canRaf = 0, goingTo = null, goingTimer = 0;
+
+  const canTop = () => parseFloat(getComputedStyle(canStage).top) || 0;
+  const canProgress = () => {
+    const r = canPin.getBoundingClientRect();
+    const run = r.height - canStage.offsetHeight;
+    return run > 0 ? Math.min(1, Math.max(0, (canTop() - r.top) / run)) : 0;
+  };
+  const areaFor = (p) => Math.min(areaTabs.length - 1, Math.floor(p * areaTabs.length));
+  const canUpdate = () => {
+    canRaf = 0;
+    if (!canPinned) return;
+    const p = canProgress();
+    canStuck = p > 0 && p < 1;
+    const k = areaFor(p);
+    if (goingTo !== null) { if (k !== goingTo) return; goingTo = null; }
+    selectArea(areaTabs[k]);
+  };
+  const canScroll = () => { if (!canRaf) canRaf = requestAnimationFrame(canUpdate); };
+  const stopGoing = () => { if (goingTo === null) return; goingTo = null; clearTimeout(goingTimer); canScroll(); };
+  // Returns true when the scene fits pinned (call with .is-pinned on); sets --can-photo-h
+  const measureCan = () => {
+    can.style.removeProperty('--can-photo-h');
+    const st = getComputedStyle(canStage);
+    const avail = canStage.clientHeight - parseFloat(st.paddingTop) - parseFloat(st.paddingBottom);
+    const left = canHead.offsetHeight + (parseFloat(st.rowGap) || 0) + canList.offsetHeight;
+    const was = canPanels.map((p) => p.hidden);
+    canPanels.forEach((p) => { p.hidden = false; });
+    let fixed = 0, photo = Infinity;
+    canPanels.forEach((p) => {
+      const box = p.querySelector('.media-frame__box');
+      const h = box ? box.offsetHeight : 0;
+      fixed = Math.max(fixed, p.offsetHeight - h);
+      if (box) photo = Math.min(photo, h);
+    });
+    canPanels.forEach((p, i) => { p.hidden = was[i]; });
+    const photoH = Math.floor(Math.min(photo, avail - fixed));
+    if (left > avail || photoH < MIN_PHOTO_H) return false;
+    can.style.setProperty('--can-photo-h', photoH + 'px');
+    return true;
+  };
+  const setCanPinned = (on) => {
+    if (on === canPinned) return;
+    const before = can.getBoundingClientRect();
+    const top = canPinned ? canTop() : 0;
+    const stuck = canPinned && canStuck;
+    canPinned = on;
+    canStuck = false;
+    can.classList.toggle('is-pinned', on);
+    if (!on) { can.style.removeProperty('--can-photo-h'); stopGoing(); }
+    // Keep the page still (instant: the page sets scroll-behavior: smooth). Unpinning while the stage was stuck
+    // brings the scene under the header; with the section above the screen the content below stays put.
+    if (stuck) window.scrollBy({ top: canPin.getBoundingClientRect().top - top, behavior: 'instant' });
+    else if (before.bottom <= 0) window.scrollBy({ top: can.getBoundingClientRect().bottom - before.bottom, behavior: 'instant' });
+  };
+  const canRefresh = () => {
+    let fits = false;
+    if (!narrowMQ.matches) {
+      const was = canPinned;
+      can.classList.add('is-pinned');
+      fits = measureCan();
+      if (!was) can.classList.remove('is-pinned');
+    }
+    setCanPinned(fits);
+    canScroll();
+  };
+  // Pinned: select now, then scroll to the middle of the tab's third
+  const openArea = (tab, opts) => {
+    if (!tab || !canPinned) { selectArea(tab, opts); return; }
+    const k = areaTabs.indexOf(tab);
+    selectArea(tab, opts);
+    const r = canPin.getBoundingClientRect();
+    const run = r.height - canStage.offsetHeight;
+    goingTo = k;
+    clearTimeout(goingTimer);
+    goingTimer = setTimeout(stopGoing, 2000);
+    window.scrollTo({ top: window.scrollY + r.top - canTop() + run * (k + 0.5) / areaTabs.length, behavior: 'smooth' });
+  };
+  if (can && canPin && canStage && canHead && canList && canPanels.length && !reduce
+    && window.CSS && CSS.supports('grid-template-rows', 'subgrid')) {
+    canRefresh();
+    window.addEventListener('scroll', canScroll, { passive: true });
+    window.addEventListener('resize', canRefresh);
+    ['wheel', 'touchstart'].forEach((ev) => window.addEventListener(ev, stopGoing, { passive: true }));
+    window.addEventListener('scrollend', stopGoing);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(canRefresh);
+  }
+
   if (areas && areaTabs.length) {
     if (!reduce) {
       areas.classList.add('is-armed');
@@ -51,10 +153,10 @@
         () => areas.querySelectorAll('.is-marked').forEach((p) => p.classList.remove('is-marked')), 0.2);
     }
     areaTabs.forEach((t, i) => {
-      t.addEventListener('click', () => selectArea(t));
+      t.addEventListener('click', () => openArea(t));
       let hoverTimer = null;
       t.addEventListener('mouseenter', () => {
-        if (!fine.matches) return;
+        if (!fine.matches || canPinned) return; // pinned: the scroll position owns the tab
         hoverTimer = setTimeout(() => selectArea(t), 140);
       });
       t.addEventListener('mouseleave', () => { clearTimeout(hoverTimer); });
@@ -67,12 +169,15 @@
         else if (e.key === 'End') k = n - 1;
         if (k === null) return;
         e.preventDefault();
-        selectArea(areaTabs[k], { focus: true });
+        openArea(areaTabs[k], { focus: true });
       });
     });
   }
   document.querySelectorAll('.gc-mini[data-area]').forEach((a) => {
-    a.addEventListener('click', () => selectArea(document.getElementById('gc-tab-' + a.dataset.area)));
+    a.addEventListener('click', (e) => {
+      if (canPinned) e.preventDefault();
+      openArea(document.getElementById('gc-tab-' + a.dataset.area));
+    });
   });
 
   /* ---------- 01 / 04 Chat playback ---------- */

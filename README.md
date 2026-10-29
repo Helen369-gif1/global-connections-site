@@ -11,7 +11,7 @@ Visual style taken from the Gia site (tokens, components, header and footer styl
 
     01  Hero: Gia video + chat preview     #intro
     02  How it works (4 story cards)       #how-it-works
-    03  What Gia can do (Save / Earn extra / Work & goals)   #what-gia-does
+    03  What Gia can do (Save / Earn extra / Work & goals; pinned, tabs switch on scroll)   #what-gia-does
     04  Example dialogue                   #example
         (photo breather between 04 and 05)
     05  Personal & trust                   #trust
