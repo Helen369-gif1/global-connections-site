@@ -11,7 +11,9 @@ Visual style taken from the Gia site (tokens, components, header and footer styl
 
     01  Hero: scroll-driven frame sequence + captions   #intro
     02  How it works (4 story cards)       #how-it-works
-    03  What Gia can do (Save / Earn extra / Work & goals; pinned, tabs switch on scroll)   #what-gia-does
+    03  What Gia can do: intro preview chat + pinned tabs   #what-gia-does
+        (the chat preview moved here from the hero and is styled like 04, mirrored: chat left, text right;
+        its cards open Save / Earn extra / Work & goals; the tabs are pinned and switch on scroll)
     04  Example dialogue                   #example
         (photo breather between 04 and 05)
     05  Personal & trust                   #trust
@@ -28,7 +30,7 @@ Visual style taken from the Gia site (tokens, components, header and footer styl
     js/site.js          menu, scroll progress, reveal (from the Gia site)
     js/scroll-hero.js   01 hero: draws the frame for the scroll position on a canvas, captions, frame loading
     js/components.js    play-once video, photo breather, staggered entry, shine (from the Gia site)
-    js/page.js          chats, story cards, area tabs, prompt chips, header links
+    js/page.js          chats (03 options, 04 example), story cards, area tabs, prompt chips, header links
     assets/             logo, Gia's photo, photos
     assets/scroll-hero/ 01 hero frames (one shot: dark corridor -> lobby -> Gia close up on the right)
         desktop/f000.webp ... f182.webp   183 frames 1280x720 (24 fps, about 7.6 s)

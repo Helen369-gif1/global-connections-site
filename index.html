@@ -184,27 +184,52 @@
 <!-- 03 WHAT GIA CAN DO -->
 <section class="section section--glow gc-can" id="what-gia-does" aria-labelledby="can-title" data-gc-can>
   <div class="container">
-    <figure class="gc-hero__chat">
-      <div class="glass gc-chat gc-chat--mini" id="gc-hero-chat" data-gc-chat="hero">
-        <div class="gc-chat__head">
-          <span class="gc-ava"><picture><source srcset="assets/images/gia.webp" type="image/webp"><img src="assets/images/gia.png" width="400" height="400" alt="" decoding="async"></picture></span>
-          <span class="gc-chat__name">Gia</span>
-          <span class="gc-chat__state mono" data-chat-state aria-hidden="true">listening</span>
+    <!-- Intro preview: the chat that used to sit in the hero; a mirrored pair to 04 (chat left, text right) -->
+    <div class="gc-options" role="group" aria-labelledby="options-title">
+      <div class="gc-options__text">
+        <div class="reveal">
+          <p class="eyebrow">What is Global Connections</p>
+          <h2 class="h2" id="options-title">Gia turns a flood of offers into a few clear choices.</h2>
+          <p class="lead">Global Connections is Glonari&rsquo;s intelligent system for discovering useful opportunities, saving money, earning rewards and making better use of your knowledge and experience.</p>
+          <p class="gc-options__body">Instead of searching for offers, comparing endless options and deciphering complicated terms yourself, you can turn to Gia. She considers your goals and preferences, looks for relevant opportunities, explains why they may be worth your attention and helps you take the next step.</p>
         </div>
-        <div class="gc-chat__body">
-          <p class="bubble bubble--user gc-step" data-step="1"><span class="sr-only">You: </span>I want to cut costs and earn a bit extra</p>
-          <p class="gc-typing gc-step" data-step="2" data-typing aria-hidden="true"><span></span><span></span><span></span></p>
-          <p class="bubble bubble--gia gc-step" data-step="3" data-state="found 3 options"><span class="sr-only">Gia: </span>I found 3 options that fit. Want to see them?</p>
-          <ul class="gc-minis" aria-label="Options Gia found">
-            <li class="gc-step" data-step="4"><a class="gc-mini" href="#what-gia-does" data-area="save"><span class="gc-mini__label mono">Save</span><span class="gc-mini__value">$15/mo</span><span class="gc-mini__cap">Internet plan</span></a></li>
-            <li class="gc-step" data-step="5"><a class="gc-mini" href="#what-gia-does" data-area="earn"><span class="gc-mini__label mono">Earn</span><span class="gc-mini__value">Survey ~$8</span><span class="gc-mini__cap">About 15 min</span></a></li>
-            <li class="gc-step" data-step="6"><a class="gc-mini" href="#what-gia-does" data-area="work"><span class="gc-mini__label mono">Grow</span><span class="gc-mini__value">Project</span><span class="gc-mini__cap">For your experience</span></a></li>
-          </ul>
-        </div>
-        <div class="gc-chat__input" aria-hidden="true"><span>Ask Gia anything&hellip;</span></div>
+        <ol class="gc-index" aria-label="What happens in this preview">
+          <li data-index="1">You share a goal</li>
+          <li data-index="2">Gia checks what fits</li>
+          <li data-index="3">Three options, one for each direction</li>
+          <li data-index="4">You make the final decision</li>
+        </ol>
+        <p class="caption gc-options__hint">Tap a card to open that direction below.</p>
+        <button class="btn btn--secondary btn--sm gc-replay" type="button" data-chat-replay="options"><svg class="gc-icon" aria-hidden="true"><use href="#gc-i-replay"/></svg>Replay</button>
       </div>
-      <figcaption class="caption gc-hero__note">Illustrative preview. Amounts are examples.</figcaption>
-    </figure>
+
+      <div class="gc-options__chat">
+        <div class="glass gc-chat gc-chat--options" id="gc-options-chat" data-gc-chat="options">
+          <div class="gc-chat__head">
+            <span class="gc-ava"><picture><source srcset="assets/images/gia.webp" type="image/webp"><img src="assets/images/gia.png" width="400" height="400" alt="" loading="lazy" decoding="async"></picture></span>
+            <span class="gc-chat__name">Gia</span>
+            <span class="gc-chat__state mono" data-chat-state aria-hidden="true">listening</span>
+            <span class="badge badge--plain gc-chat__badge">Illustrative</span>
+          </div>
+          <div class="gc-chat__body" data-chat-scroll>
+            <p class="bubble bubble--user gc-step" data-step="1" data-index-step="1"><span class="sr-only">You: </span>I want to cut costs and earn a bit extra.</p>
+            <p class="gc-typing gc-step" data-step="2" data-typing aria-hidden="true"><span></span><span></span><span></span></p>
+            <p class="gc-log mono gc-step" data-step="3" data-index-step="2" data-state="searching">Checked the everyday services you already pay for</p>
+            <p class="gc-log mono gc-step" data-step="4" data-state="comparing">Looked for short paid tasks and projects that match your experience</p>
+            <p class="bubble bubble--gia gc-step" data-step="5" data-index-step="3" data-state="found 3 options"><span class="sr-only">Gia: </span>I found 3 options that fit. Here&rsquo;s one for each direction:</p>
+            <ul class="gc-minis" aria-label="Options Gia found">
+              <li class="gc-step" data-step="6"><a class="gc-mini" href="#what-gia-does" data-area="save"><span class="gc-mini__label mono">Save</span><span class="gc-mini__value">$15/mo</span><span class="gc-mini__cap">Internet plan</span></a></li>
+              <li class="gc-step" data-step="7"><a class="gc-mini" href="#what-gia-does" data-area="earn"><span class="gc-mini__label mono">Earn</span><span class="gc-mini__value">Survey ~$8</span><span class="gc-mini__cap">About 15 min</span></a></li>
+              <li class="gc-step" data-step="8"><a class="gc-mini" href="#what-gia-does" data-area="work"><span class="gc-mini__label mono">Grow</span><span class="gc-mini__value">Project</span><span class="gc-mini__cap">For your experience</span></a></li>
+            </ul>
+            <p class="bubble bubble--gia gc-step" data-step="9" data-index-step="4" data-state="waiting for you"><span class="sr-only">Gia: </span>Pick one and I&rsquo;ll explain what you get, what&rsquo;s required and the terms. You always make the final decision.</p>
+          </div>
+          <a class="gc-chat__input" href="#final"><span>Ask Gia anything&hellip;</span></a>
+        </div>
+        <p class="caption gc-disclaimer">Illustrative preview. Amounts are examples and do not guarantee availability or rewards.</p>
+      </div>
+    </div>
+
     <div class="gc-can__pin">
       <div class="gc-can__stage">
         <div class="reveal gc-can__head">

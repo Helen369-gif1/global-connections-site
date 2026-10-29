@@ -1,6 +1,6 @@
 /* Global Connections — standalone one-page site (index.html) — page styles. Shared components: css/components.css.
    Six blocks: 01 hero (frame sequence driven by scroll + captions), 02 how it works (story cards), 03 what Gia can do
-   (list selector + one card), 04 example dialogue (chat with Gia's visible work), 05 personal & trust, 06 final CTA.
+   (options chat preview + list selector + one card), 04 example dialogue (chat with Gia's visible work), 05 personal & trust, 06 final CTA.
    Animated states are armed by js/pages/global-connections.js (.is-armed); without JS or under reduced motion
    every block shows its final state. */
 
@@ -21,7 +21,7 @@
 .gc-ava img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; display: block; }
 .gc-ava--sm { width: 32px; height: 32px; }
 
-/* ===== Chat window (01 preview, 04 example) ===== */
+/* ===== Chat window (03 options, 04 example) ===== */
 .gc-chat { display: flex; flex-direction: column; overflow: hidden; }
 .gc-chat__head {
   display: flex; align-items: center; gap: 10px; padding: 12px 16px;
@@ -146,28 +146,6 @@ a.gc-chat__input:focus-visible, .gc-mini:focus-visible { outline: 2px solid var(
   .gc-scrollhero.is-armed { height: 360vh; }
   .gc-scrollhero.is-armed .gc-scrollhero__caps { align-items: end; padding-bottom: 104px; }
   .gc-scrollhero__actions { margin-top: 24px; }
-}
-
-/* ===== 01 preview chat (moved to 03 for now) ===== */
-.gc-hero__chat { max-width: 360px; margin: 0 0 var(--section-pad); }
-.gc-chat--mini .gc-chat__body { padding: 14px; gap: 8px; }
-.gc-chat--mini .bubble { font-size: 13px; }
-.gc-hero__note { margin-top: 8px; font-size: 12px; text-shadow: 0 1px 12px rgba(0, 0, 0, .6); }
-.gc-minis { list-style: none; margin: 4px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-.gc-mini {
-  display: grid; gap: 2px; height: 100%; padding: 10px; border-radius: 10px; text-decoration: none;
-  border: 1px solid var(--gp-glass-border); background: rgba(242, 179, 90, .04);
-  transition: border-color .2s var(--ease), background-color .2s var(--ease);
-}
-.gc-mini:hover { border-color: var(--gp-glass-border-active); background: rgba(242, 179, 90, .08); }
-.gc-mini__label { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--gp-copper); }
-.gc-mini__value { font-size: 15px; font-weight: 600; line-height: 1.25; color: var(--gp-gold); }
-.gc-mini__cap { font-size: 11.5px; line-height: 1.35; color: var(--gp-text-muted); }
-@media (max-width: 768px) { .gc-chat--mini .gc-chat__input { display: none; } }
-@media (max-width: 420px) {
-  .gc-minis { gap: 6px; }
-  .gc-mini { padding: 8px; }
-  .gc-mini__value { font-size: 14px; }
 }
 
 /* ===== 02 How it works: story cards (Blink "Our story" pattern: one photo fills each card) =====
@@ -302,10 +280,47 @@ a.gc-chat__input:focus-visible, .gc-mini:focus-visible { outline: 2px solid var(
   .gc-area-tab:focus-visible { outline-offset: 2px; }
 }
 
+/* ===== 03 Options chat: a mirrored pair to 04 (chat left 7/12, text right 5/12), then the pinned scene =====
+   The text comes first in the markup (reading order, phones); above 960px it moves to the right column. */
+.gc-options {
+  display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(40px, 5vw, 80px); align-items: start;
+  margin-bottom: var(--section-pad);
+}
+.gc-options > * { min-width: 0; }
+.gc-options__text { grid-column: 2; grid-row: 1; position: sticky; top: calc(var(--header-h) + 32px); }
+.gc-options__chat { grid-column: 1; grid-row: 1; }
+.gc-options__body { margin: 16px 0 0; font-size: 17px; line-height: 1.65; color: var(--gp-text-2); max-width: 560px; }
+.gc-options__hint { margin-top: 16px; }
+.gc-chat--options .gc-chat__body { gap: 12px; padding: 20px; }
+.gc-minis { list-style: none; margin: 4px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.gc-mini {
+  display: grid; gap: 2px; height: 100%; padding: 10px; border-radius: 10px; text-decoration: none;
+  border: 1px solid var(--gp-glass-border); background: rgba(242, 179, 90, .04);
+  transition: border-color .2s var(--ease), background-color .2s var(--ease);
+}
+.gc-mini:hover { border-color: var(--gp-glass-border-active); background: rgba(242, 179, 90, .08); }
+.gc-mini__label { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--gp-copper); }
+.gc-mini__value { font-size: 15px; font-weight: 600; line-height: 1.25; color: var(--gp-gold); }
+.gc-mini__cap { font-size: 11.5px; line-height: 1.35; color: var(--gp-text-muted); }
+@media (max-width: 960px) {
+  .gc-options { grid-template-columns: minmax(0, 1fr); }
+  .gc-options__text, .gc-options__chat { grid-column: 1; grid-row: auto; }
+  .gc-options__text { position: static; }
+}
+@media (max-width: 768px) {
+  .gc-chat--options .gc-chat__body { padding: 16px; }
+  .gc-chat--options .gc-chat__badge { display: none; }
+}
+@media (max-width: 420px) {
+  .gc-minis { gap: 6px; }
+  .gc-mini { padding: 8px; }
+  .gc-mini__value { font-size: 14px; }
+}
+
 /* Pinned scene: js/page.js adds .is-pinned above 960px when the scene fits the screen. .gc-can__pin is three
    screens tall (one per tab), its stage sticks under the header; the heading moves above the tab list and the card
-   spans both rows (subgrid). js/page.js sets --can-photo-h so the card fits. */
-.gc-can.is-pinned { padding-top: 0; }
+   spans both rows (subgrid). js/page.js sets --can-photo-h so the card fits. The section keeps its top padding:
+   the options chat sits above the pinned part. */
 .gc-can.is-pinned .gc-can__pin { height: 300vh; }
 .gc-can.is-pinned .gc-can__stage {
   position: sticky; top: var(--header-h);

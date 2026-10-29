@@ -1,5 +1,5 @@
 /* Global Connections — standalone one-page site (index.html) — page script. Needs js/site.js and js/components.js first.
-   01 hero chat preview and 04 example dialogue (step-by-step playback, Replay), 02 story cards (pinned row, cards join on scroll),
+   03 options chat preview and 04 example dialogue (step-by-step playback, Replay), 02 story cards (pinned row, cards join on scroll),
    03 area selector (ARIA tabs, marker highlight; pinned scene, tabs switch on scroll), 06 prompt chips and the demo answer.
    Without JS or under reduced motion every block shows its final state. Missing elements never throw. */
 (() => {
@@ -19,7 +19,7 @@
     }), { threshold: 0 }).observe(el);
   };
 
-  /* ---------- 03 Area selector (declared first: the hero mini cards open an area) ---------- */
+  /* ---------- 03 Area selector (declared first: the options chat mini cards open an area) ---------- */
   const areas = document.querySelector('[data-gc-areas]');
   const areaTabs = areas ? [...areas.querySelectorAll('[role="tab"]')] : [];
   const markPanel = (panel) => {
@@ -46,7 +46,7 @@
   };
 
   /* 03 pinned scene: scroll progress p through .gc-can__pin picks the tab: [0, 1/3) Save, [1/3, 2/3) Earn extra,
-     [2/3, 1] Work & goals. A click, an arrow key or a hero mini card selects the tab at once and scrolls smoothly to
+     [2/3, 1] Work & goals. A click, an arrow key or an options chat mini card selects the tab at once and scrolls smoothly to
      the middle of its third; scroll-driven switching waits until the page gets there (or the visitor scrolls).
      Not pinned at 960px and below, when the card photo would be shorter than MIN_PHOTO_H, under reduced motion
      or without subgrid: tabs switch on click as before. */
@@ -180,14 +180,13 @@
     });
   });
 
-  /* ---------- 01 / 04 Chat playback ---------- */
+  /* ---------- 03 / 04 Chat playback: each chat drives the .gc-index of its own section ---------- */
   const WORKING = /think|search|compar|prepar|check|look/i;
   const setupChat = (chat) => {
     const steps = [...chat.querySelectorAll('.gc-step')].sort((a, b) => a.dataset.step - b.dataset.step);
     const stateEl = chat.querySelector('[data-chat-state]');
     const scroller = chat.querySelector('[data-chat-scroll]');
-    const name = chat.dataset.gcChat;
-    const index = document.querySelectorAll('.gc-index [data-index]');
+    const index = (chat.closest('section') || document).querySelectorAll('.gc-index [data-index]');
     const offers = chat.querySelectorAll('.gc-offer');
     let run = 0;
 
@@ -217,7 +216,7 @@
       chat.classList.remove('is-armed');
       steps.forEach((el) => { el.classList.add('is-shown'); if (el.hasAttribute('data-typing')) el.classList.remove('is-on'); else applyStep(el); });
       const last = steps.filter((el) => !el.hasAttribute('data-typing')).pop();
-      setState(name === 'hero' ? 'found 3 options' : ((last && last.dataset.state) || 'ready'));
+      setState((last && last.dataset.state) || 'ready');
       if (scroller) scroller.scrollTop = scroller.scrollHeight;
     };
     const reset = () => {
@@ -225,14 +224,14 @@
       chat.classList.add('is-armed');
       steps.forEach((el) => { el.classList.remove('is-shown'); if (el.hasAttribute('data-typing')) el.classList.remove('is-on'); });
       offers.forEach((o) => o.classList.remove('is-selected', 'is-later'));
-      if (index.length && name === 'example') setIndex(0);
+      if (index.length) setIndex(0);
       setState('listening');
       if (scroller) scroller.scrollTop = 0;
     };
     const play = async () => {
       reset();
       const id = run;
-      await wait(name === 'hero' ? 1200 : 400);
+      await wait(400);
       for (const el of steps) {
         if (id !== run) return;
         if (el.hasAttribute('data-typing')) {
@@ -253,12 +252,11 @@
         const inMinis = !!el.closest('.gc-minis');
         await wait(inMinis ? 260 : el.classList.contains('gc-log') ? 750 : el.classList.contains('gc-reply') ? 1500 : 1000);
       }
-      if (id === run && name === 'hero') setState('found 3 options');
     };
 
     if (reduce) { finish(); return { play: finish }; }
     reset();
-    onVisit(chat, play, reset, name === 'hero' ? 0.5 : 0.35);
+    onVisit(chat, play, reset);
     return { play };
   };
   const players = {};
