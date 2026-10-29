@@ -283,14 +283,13 @@ a.gc-chat__input:focus-visible, .gc-mini:focus-visible { outline: 2px solid var(
 /* ===== 03 Options chat: a mirrored pair to 04 (chat left 7/12, text right 5/12), then the pinned scene =====
    The text comes first in the markup (reading order, phones); above 960px it moves to the right column. */
 .gc-options {
-  display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(40px, 5vw, 80px); align-items: start;
+  display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(40px, 5vw, 80px); align-items: center;
   margin-bottom: var(--section-pad);
 }
 .gc-options > * { min-width: 0; }
-.gc-options__text { grid-column: 2; grid-row: 1; position: sticky; top: calc(var(--header-h) + 32px); }
+.gc-options__text { grid-column: 2; grid-row: 1; }
 .gc-options__chat { grid-column: 1; grid-row: 1; }
-.gc-options__body { margin: 16px 0 0; font-size: 17px; line-height: 1.65; color: var(--gp-text-2); max-width: 560px; }
-.gc-options__hint { margin-top: 16px; }
+.gc-options .gc-index { margin-top: 20px; }
 .gc-chat--options .gc-chat__body { gap: 12px; padding: 20px; }
 .gc-minis { list-style: none; margin: 4px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
 .gc-mini {
@@ -305,7 +304,6 @@ a.gc-chat__input:focus-visible, .gc-mini:focus-visible { outline: 2px solid var(
 @media (max-width: 960px) {
   .gc-options { grid-template-columns: minmax(0, 1fr); }
   .gc-options__text, .gc-options__chat { grid-column: 1; grid-row: auto; }
-  .gc-options__text { position: static; }
 }
 @media (max-width: 768px) {
   .gc-chat--options .gc-chat__body { padding: 16px; }
